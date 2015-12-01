@@ -32,6 +32,7 @@
   "dependencies": {
     "flux": "^2.1.1",
     "history": "^1.13.1",
+    "nuclear-js": "^1.2.1",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "react-router": "^1.0.0"
