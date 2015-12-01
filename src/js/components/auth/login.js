@@ -2,9 +2,7 @@
 var React = require('react');
 var Router = require('react-router');
 var AuthStore = require('../../stores/AuthStore.js');
-var AuthAction = require('../../actions/app-auth.js');
-var FbLoginButton = require('./app-fbloginbutton.js');
-
+var AuthActions = require('../../actions/authActions.js');
 
 var Login = React.createClass({
   contextTypes: {

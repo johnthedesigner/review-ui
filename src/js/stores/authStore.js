@@ -1,7 +1,8 @@
-var AppDispatcher = require('../dispatchers/app-dispatcher');
-var AppConstants = require('../constants/app-constants');
+var AppDispatcher = require('../dispatchers/appDispatcher');
+var AppConstants = require('../constants/appConstants');
 var EventEmitter = require('events').EventEmitter;
-var React = require('react/addons');
+//var React = require('react/addons');
+var Update = require('react-addons-update');
 var jQuery = require('jquery');
 var http = require('http');
 var request = require('request');
@@ -147,7 +148,7 @@ function _nodeRequest(email, pass, cb) {
 
 }
 
-var AuthStore = React.addons.update(EventEmitter.prototype, {$merge: {
+var AuthStore = Update(EventEmitter.prototype, {$merge: {
   emitChange:function(){
     this.emit(CHANGE_EVENT);
   },

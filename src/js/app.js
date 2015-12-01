@@ -25,6 +25,4 @@ var routes = (
   </Route>
 );
 
-Router.run(routes, function (Handler) {
-  React.render(<Handler/>, document.getElementById('example'));
-});
+React.render(<Router>{routes}</Router>, document.getElementById('app'))

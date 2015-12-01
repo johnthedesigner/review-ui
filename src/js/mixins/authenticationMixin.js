@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-var Login = require('../components/auth/app-login');
+var Login = require('../components/auth/login');
 var AuthStore = require('../stores/AuthStore.js');
 
 var AuthenticationMixin = {
