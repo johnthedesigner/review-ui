@@ -25,4 +25,6 @@ const cartTotal = [
   }
 ]
 
-export default { products, cartProducts, cartTotal }
+const reviews = ['reviews']
+
+export default { products, cartProducts, cartTotal, reviews }

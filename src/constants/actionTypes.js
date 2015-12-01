@@ -6,4 +6,5 @@ export default keyMirror({
     CHECKOUT_START: null,
     CHECKOUT_SUCCESS: null,
     CHECKOUT_FAILED: null,
+    RECEIVE_REVIEWS: null,
 })
