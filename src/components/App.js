@@ -14,6 +14,7 @@ export default React.createClass({
       <div>
         <header>
           <h1>React Starterify {version}</h1>
+          <Link to="/reviews">Reviews</Link>
           <Link to="/about">About</Link>
           <Link to="/poweredby">Powered by</Link>
         </header>
