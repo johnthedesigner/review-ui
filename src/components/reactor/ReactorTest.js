@@ -1,3 +1,4 @@
+//TODO Remove all testing reactor docs/functions
 import React from 'react'
 import CartContainer from './CartContainer'
 import ProductsContainer from './ProductsContainer'

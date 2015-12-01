@@ -1,8 +1,8 @@
 import React from 'react'
-
 import reactor from '../../reactor'
 import getters from '../../getters'
 import actions from '../../actions/reviewActions'
+import ReviewItem from './ReviewItem'
 
 
 const ReviewList = React.createClass({
@@ -12,27 +12,6 @@ const ReviewList = React.createClass({
     )
   }
 })
-
-const ReviewItem = React.createClass({
-  render() {
-    var review = this.props.review;
-
-    return (
-      <div className="card">
-        <h4>{review.title}</h4>
-        <p>{review.body}</p>
-        <hr/>
-      </div>
-    )
-  }
-})
-ReviewItem.propTypes = {
-    review: React.PropTypes.shape({
-      title: React.PropTypes.string.isRequired,
-      body: React.PropTypes.string.isRequired
-    }).isRequired
-};
-
 
 export default React.createClass({
   mixins: [reactor.ReactMixin],

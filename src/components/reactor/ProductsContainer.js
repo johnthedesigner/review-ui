@@ -1,3 +1,4 @@
+//TODO Remove all testing reactor docs/functions
 import React from 'react'
 
 import ProductItem from '../../../common/components/ProductItem'

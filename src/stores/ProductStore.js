@@ -1,3 +1,4 @@
+//TODO Remove all testing reactor docs/functions
 import { Store, toImmutable } from 'nuclear-js'
 import { RECEIVE_PRODUCTS, ADD_TO_CART } from '../constants/actionTypes'
 

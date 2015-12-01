@@ -1,3 +1,4 @@
+//TODO Remove all testing reactor docs/functions
 import shop from '../../common/api/shop'
 import reactor from '../reactor'
 import {

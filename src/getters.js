@@ -1,3 +1,5 @@
+//TODO Remove all testing reactor docs/functions
+
 // it is idiomatic to facade all data access through getters, that way a component only has to subscribe to a getter making it agnostic
 // to the underlying stores and data transformation that is taking place
 const products = ['products']
