@@ -35,9 +35,15 @@ section {
  padding: 20px;
 }
 
+/* TEMP REVIEW STYLES */
+.review-list {
+  margin: 0 auto;
+  max-width: 600px;
+}
 .card {
+  border: #eee solid 1px;
   padding: 2rem;
-  margin: 2rem;
+  margin: 1rem;
   box-shadow: 0 1px 4px rgba(0,0,0,.3);
 }
 .card hr{

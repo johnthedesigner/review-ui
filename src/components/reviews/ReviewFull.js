@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router'
 
 const ReviewItem = React.createClass({
   render() {
@@ -19,12 +18,13 @@ const ReviewItem = React.createClass({
     return (
       <div className="card">
         <img className="reviewable-thumb" src="http://placehold.it/80x80" />
+        <h2>ID: {review._id}</h2>
         <h4>{review.reviewable.name}</h4>
         <p>{review.reviewable.description}</p>
         <hr/>
         <img className="reviewer-thumb" src="http://placehold.it/80x80" />
         <p>@{review.author.username}</p>
-        <h4><Link to={`/review/${review._id}`}>{review.title}</Link></h4>
+        <h4>{review.title}</h4>
         <h2>{review.rating}</h2>
         <p>{review.body}</p>
         <button className={like_button.className}>{like_button.action}</button>
@@ -34,6 +34,7 @@ const ReviewItem = React.createClass({
 })
 ReviewItem.propTypes = {
     review: React.PropTypes.shape({
+      _id: React.PropTypes.number.isRequired,
       title: React.PropTypes.string.isRequired,
       body: React.PropTypes.string.isRequired,
       author: React.PropTypes.object.isRequired,

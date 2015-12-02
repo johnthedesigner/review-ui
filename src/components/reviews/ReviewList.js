@@ -18,12 +18,12 @@ export default React.createClass({
 
   getDataBindings() {
     return {
-      reviews: getters.reviews,
+      reviews: getters.feed,
     }
   },
 
   render: function () {
-    return (
+   return (
       <ReviewList title="All Reviews">
         {this.state.reviews.map(review => {
           return <ReviewItem key={review.get('_id')} review={review.toJS()} />

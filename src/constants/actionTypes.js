@@ -8,4 +8,6 @@ export default keyMirror({
     CHECKOUT_SUCCESS: null,
     CHECKOUT_FAILED: null,
     RECEIVE_REVIEWS: null,
+    RECEIVE_REVIEW: null,
+    UPDATE_REVIEW_STORE: null,
 })

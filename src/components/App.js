@@ -14,7 +14,7 @@ export default React.createClass({
       <div>
         <header>
           <h1>Reviews</h1>
-          <Link to="/reviews">Reviews</Link>
+          <Link to="/feed">Feed</Link>
           <Link to="/about">About</Link>
         </header>
         <section>

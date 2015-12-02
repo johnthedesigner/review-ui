@@ -9,8 +9,8 @@ export default React.createClass({
   
   render() {
     return (
-      <div>
-        <h2>Reviews</h2>
+      <div className="review-list">
+        <h2 className="review-title">My Feed</h2>
         <ReviewList/>
       </div>
     );

@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import { Router, Route } from 'react-router';
 import App from './components/App';
 import About from './components/About';
-import Reviews from './components/reviews/Reviews';
+import Feed from './components/reviews/Feed';
+import Review from './components/reviews/Review';
 
 // Reactor Experimentation
 //TODO Remove all testing reactor docs/functions
@@ -11,12 +12,14 @@ import ReactorTest from './components/reactor/ReactorTest';
 import reactor from './reactor'
 import ProductStore from './stores/ProductStore'
 import CartStore from './stores/CartStore'
+import FeedStore from './stores/FeedStore'
 import ReviewStore from './stores/ReviewStore'
 
 reactor.registerStores({
   'products': ProductStore,
   'cart': CartStore,
-  'reviews': ReviewStore,
+  'feed': FeedStore,
+  'review': ReviewStore,
 })
 
 window.React = React;
@@ -24,9 +27,10 @@ window.React = React;
 ReactDOM.render(
   <Router>
     <Route path="/" component={App}>
-      <Route path="/reviews" component={Reviews}/>
-      <Route path="/about" component={About}/>
-      <Route path="/reactor" component={ReactorTest}/>
+      <Route path="feed" component={Feed}/>
+      <Route path="review/:id" component={Review}/>
+      <Route path="about" component={About}/>
+      <Route path="reactor" component={ReactorTest}/>
     </Route>
   </Router>
   , document.getElementById('content')

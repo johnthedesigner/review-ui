@@ -1,7 +1,6 @@
 import { Store, toImmutable } from 'nuclear-js'
-import reactor from '../reactor'
 import {
-  RECEIVE_REVIEW
+  RECEIVE_REVIEWS
 } from '../constants/actionTypes'
 
 // example product:
@@ -13,7 +12,7 @@ export default Store({
   },
 
   initialize() {
-    this.on(RECEIVE_REVIEW, receiveReview)
+    this.on(RECEIVE_REVIEWS, receiveReviews)
   }
 })
 
@@ -23,9 +22,8 @@ export default Store({
  * Transforms an array of reviews to a map keyed by review._id, and merges it
  * with the current state.
  */
-function receiveReview(state, { review }) {
-  let newReview = toImmutable(review)
+function receiveReviews(state, { reviews }) {
+  let newReviews = toImmutable(reviews)
     .toMap()
-    .mapKeys((k, v) => v.get('_id'))  
-  return state = (newReview)
+  return state.merge(newReviews)
 }
