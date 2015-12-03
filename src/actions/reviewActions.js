@@ -4,6 +4,7 @@ import {
     RECEIVE_REVIEWS,
     RECEIVE_REVIEW,
     UPDATE_REVIEW_STORE,
+    LIKE_BUTTON,
 } from '../constants/actionTypes'
 
 export default {
@@ -18,4 +19,11 @@ export default {
       reactor.dispatch(RECEIVE_REVIEW, { review })
     });
   },
+
+  likeButton(id) {
+    reactor.dispatch(LIKE_BUTTON, { status: 'pending' })
+    API.likeButton(id, review => {
+      reactor.dispatch(LIKE_BUTTON, { review })
+    });
+  }
 }

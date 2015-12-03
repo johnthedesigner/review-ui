@@ -58,3 +58,12 @@ section {
   margin: 1rem;
   border-radius: 50%;
 }
+.likeButton-Like, .likeButton-Unlike {
+  border: none;
+  border-radius: 3px;
+  background: #ddd;
+}
+.likeButton-Unlike {
+  background: #a00;
+  color: #fff;
+}
