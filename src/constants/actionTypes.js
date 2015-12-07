@@ -11,4 +11,5 @@ export default keyMirror({
     RECEIVE_REVIEW: null,
     UPDATE_REVIEW_STORE: null,
     LIKE_BUTTON: null,
+    TRACK_REQUEST: null,
 })

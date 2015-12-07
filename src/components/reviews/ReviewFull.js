@@ -1,4 +1,5 @@
 import React from 'react'
+import LikeButton from './LikeButton'
 
 const ReviewItem = React.createClass({
   render() {
@@ -27,7 +28,7 @@ const ReviewItem = React.createClass({
         <h4>{review.title}</h4>
         <h2>{review.rating}</h2>
         <p>{review.body}</p>
-        <button className={like_button.className}>{like_button.action}</button>
+        <LikeButton review={this.props.review} requests={this.props.requests} /> 
       </div>
     )
   }

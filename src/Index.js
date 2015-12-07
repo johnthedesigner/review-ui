@@ -14,12 +14,14 @@ import ProductStore from './stores/ProductStore'
 import CartStore from './stores/CartStore'
 import FeedStore from './stores/FeedStore'
 import ReviewStore from './stores/ReviewStore'
+import RequestStore from './stores/RequestStore'
 
 reactor.registerStores({
   'products': ProductStore,
   'cart': CartStore,
   'feed': FeedStore,
   'review': ReviewStore,
+  'requests': RequestStore,
 })
 
 window.React = React;

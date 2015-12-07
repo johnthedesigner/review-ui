@@ -9,7 +9,10 @@ import {
 
 export default Store({
   getInitialState() {
-    return toImmutable({})
+    return toImmutable({
+      reviews: {},
+      loading: {}
+    })
   },
 
   initialize() {
@@ -25,6 +28,7 @@ export default Store({
  * with the current state.
  */
 function receiveReviews(state, payload) {
+  console.log(payload.status)
   if (payload.status === 'pending') {
     console.log('Reviews pending...')
     return state
@@ -33,7 +37,6 @@ function receiveReviews(state, payload) {
     let newReviews = toImmutable(payload.reviews)
       .toMap()
       .mapKeys((k, v) => v.get('_id'))
-    console.log(newReviews.toJS())
     return state
       .mergeIn(['reviews'], newReviews)
       .mergeIn(['loading'], toImmutable({receive_reviews: 'done'}))
@@ -44,12 +47,11 @@ function likeButton(state, payload) {
   if (payload.status === 'pending') {
     console.log('Like button pending...')
     return state
-      .mergeIn(['loading'], toImmutable({like_button: 'pending'}))
+      .setIn(['loading'], toImmutable({like_button: 'pending'}))
   } else {
     let newReview = toImmutable(payload.review)
       .toMap()
       .mapKeys((k, v) => v.get('_id'))
-    console.log(newReview.toJS())
     return state
       .mergeIn(['reviews'], newReview)
       .mergeIn(['loading'], toImmutable({like_button: 'done'}))

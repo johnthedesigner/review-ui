@@ -1,19 +1,16 @@
 import { Store, toImmutable } from 'nuclear-js'
 import reactor from '../reactor'
 import {
-  RECEIVE_REVIEW
+  TRACK_REQUEST
 } from '../constants/actionTypes'
 
 export default Store({
   getInitialState() {
-    return toImmutable({
-      reviews: {},
-      loading: {}
-    })
+    return toImmutable({})
   },
 
   initialize() {
-    this.on(RECEIVE_REVIEW, receiveReview)
+    this.on(TRACK_REQUEST, trackRequest)
   }
 })
 
@@ -23,9 +20,9 @@ export default Store({
  * Transforms an array of reviews to a map keyed by review._id, and merges it
  * with the current state.
  */
-function receiveReview(state, payload) {
-  let newReview = toImmutable(payload.review)
+function trackRequest(state, payload) {
+  let newRequest = toImmutable(payload)
     .toMap()
-    .mapKeys((k, v) => v.get('_id'))  
-  return state.setIn(['reviews'], newReview)
+  return state
+    .setIn(['requests'], newRequest)
 }
