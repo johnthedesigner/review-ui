@@ -36,15 +36,31 @@ section {
 }
 
 /* TEMP REVIEW STYLES */
-.review-list {
+.wrapper {
   margin: 0 auto;
   max-width: 600px;
 }
 .card {
-  border: #eee solid 1px;
-  padding: 2rem;
-  margin: 1rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,.3);
+  border-color: #fff;
+  border-style: solid;
+  border-width: 4px 0 0;
+}
+.feedCard {
+  margin-bottom: 2em;
+}
+.card.reviewCard-pending {
+  border-color: #f99;
+}
+@keyframes highlight {
+  0% {
+    border-color: #9f9;
+  }
+  100% {
+    border-color: #fff;
+  }
+}
+.card.reviewCard-ok {
+  animation: highlight 1s;
 }
 .card hr{
   clear:both;
@@ -58,12 +74,14 @@ section {
   margin: 1rem;
   border-radius: 50%;
 }
-.likeButton-Like, .likeButton-Unlike {
-  border: none;
-  border-radius: 3px;
-  background: #ddd;
+/* Like Button */
+.likeButton {
+  outline: none;
 }
-.likeButton-Unlike {
-  background: #a00;
-  color: #fff;
+.likeButton-like, .likeButton-unlike {
+}
+.likeButton-unlike {
+}
+.likeButton-pending {
+  opacity: .5;
 }

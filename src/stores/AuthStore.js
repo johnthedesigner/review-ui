@@ -1,9 +1,7 @@
 import { Store, toImmutable } from 'nuclear-js'
 import reactor from '../reactor'
 import {
-  RECEIVE_REVIEW,
-  RECEIVE_REVIEWS,
-  LIKE_BUTTON
+  LOGIN
 } from '../constants/actionTypes'
 
 export default Store({
@@ -12,9 +10,7 @@ export default Store({
   },
   
   initialize() {
-    this.on(RECEIVE_REVIEW, trackRequest)
-    this.on(RECEIVE_REVIEWS, trackRequest)
-    this.on(LIKE_BUTTON, trackRequest)
+    this.on(LOGIN, login)
   }
 })
 
@@ -38,12 +34,12 @@ class RequestObject {
   }
 }
 
-function trackRequest(state, request) {
-  let newRequest = toImmutable(new RequestObject(
-    request.type,
-    request.status,
-    request.id
-  ))
-  return state
-    .mergeDeep(newRequest)
+function login(state, payload) {
+  if(payload.data != undefined) {
+    let auth = toImmutable(payload.data)
+    return state
+      .merge(auth)
+  } else {
+    return state
+  }
 }

@@ -27,8 +27,7 @@ const cartTotal = [
   }
 ]
 
-const feed = ['feed']
-const review = ['review']
 const requests = ['requests']
+const reviews = ['reviews']
 
-export default { products, cartProducts, cartTotal, feed, review, requests }
+export default { products, cartProducts, cartTotal, requests, reviews }

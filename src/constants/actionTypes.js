@@ -12,4 +12,6 @@ export default keyMirror({
     UPDATE_REVIEW_STORE: null,
     LIKE_BUTTON: null,
     TRACK_REQUEST: null,
+    LOGIN: null,
+    GET_USER: null
 })

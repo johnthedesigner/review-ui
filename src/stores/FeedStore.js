@@ -16,8 +16,8 @@ export default Store({
   },
 
   initialize() {
-    this.on(RECEIVE_REVIEWS, receiveReviews)
-    this.on(LIKE_BUTTON, likeButton)
+//    this.on(RECEIVE_REVIEWS, receiveReviews)
+//    this.on(LIKE_BUTTON, likeButton)
   }
 })
 
