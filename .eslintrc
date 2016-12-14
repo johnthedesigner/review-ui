@@ -1,28 +1,27 @@
 {
   "parser": "babel-eslint",
-  "plugins": [
-    "react"
+  "extends": [
+    "standard",
+    "standard-react"
   ],
-  "ecmaFeatures": {
-    "modules": true,
-    "jsx": true
-  },
+  "plugins": [
+    "babel",
+    "react",
+    "promise"
+  ],
   "env": {
-    "browser": true,
-    "es6": true,
-    "node": true,
-    "mocha": true
+    "browser" : true
+  },
+  "globals": {
+    "__DEV__"      : false,
+    "__TEST__"     : false,
+    "__PROD__"     : false,
+    "__COVERAGE__" : false
   },
   "rules": {
-    "quotes": [
-      2,
-      "single"
-    ],
-    "eqeqeq": [
-      2,
-      "smart"
-    ],
-    "space-after-keywords": 2,
-    "no-console": 1
+    "key-spacing"          : 0,
+    "jsx-quotes"           : [2, "prefer-single"],
+    "max-len"              : [2, 120, 2],
+    "object-curly-spacing" : [2, "always"]
   }
 }

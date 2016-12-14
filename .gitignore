@@ -1,4 +1,9 @@
+.DS_STORE
+*.log
+
 node_modules
-.tmp
-.idea
+
 dist
+coverage
+
+.idea/
