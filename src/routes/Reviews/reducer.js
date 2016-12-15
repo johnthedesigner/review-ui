@@ -1,4 +1,5 @@
 import { ADD_REVIEW } from './constants'
+import faker from 'faker' // TODO remove this when IDs come from server
 
 const initialState = {
   items: [
@@ -16,13 +17,12 @@ const initialState = {
 export default function reviews(state = initialState, action) {
   switch (action.type) {
     case ADD_REVIEW:
-      let id = Math.floor((Math.random() * 100000) + 1)
       return Object.assign({},state,{
         items: [
           ...state.items,
           {
-            id: id, // Temprandom numbers for ids
-            title: action.title
+            ...action.review,
+            id: faker.random.uuid(),
           }
         ]
       })

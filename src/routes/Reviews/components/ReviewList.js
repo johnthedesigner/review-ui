@@ -6,7 +6,7 @@ const ReviewList = ({ reviews }) => (
     {reviews.map(review =>
       <Review
         key={review.id}
-        title={review.title}
+        review={review}
         {...review}
       />
     )}
@@ -14,9 +14,7 @@ const ReviewList = ({ reviews }) => (
 )
 
 ReviewList.propTypes = {
- reviews: PropTypes.arrayOf(PropTypes.shape({
-   title: PropTypes.string.isRequired
- }).isRequired).isRequired
+ reviews: PropTypes.array.isRequired
 }
 
 export default ReviewList

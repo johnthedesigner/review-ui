@@ -15,7 +15,6 @@ import ReviewsBody from '../components/ReviewsBody'
 const mapDispatchToProps = (dispatch) => {
   return {
     clickAddReview: (title) => {
-      console.log('dispatch test')
       dispatch(addReview(title))
     }
   }

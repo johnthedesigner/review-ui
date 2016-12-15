@@ -3,8 +3,10 @@ import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
+import mockState from './mockState'
 
-export default (initialState = {}) => {
+export default (initialState = mockState) => {
+  console.log(mockState)
   // ======================================================
   // Middleware Configuration
   // ======================================================

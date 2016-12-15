@@ -1,20 +1,50 @@
 import React from 'react'
 
-let input
+let titleInput, textInput, ratingInput
+
+let submitAddReview = (e, props) => {
+  e.preventDefault()
+  if (!titleInput.value.trim()) {
+    return
+  }
+  let review = {
+    title: titleInput.value,
+    text: textInput.value,
+    rating: ratingInput.value - 0 // TODO better way to force number type?
+  }
+  props.clickAddReview(review)
+  titleInput.value = ''
+  textInput.value = ''
+  ratingInput.value = ''
+}
 
 export const AddReview = (props) => (
 
-  <form onSubmit={(e) => {
-    e.preventDefault()
-    if (!input.value.trim()) {
-      return
-    }
-    props.clickAddReview(input.value)
-    input.value = ''
-  }}>
-    <input ref={node => {
-      input = node
-    }} />
+  <form onSubmit={(e) => { submitAddReview(e, props) }}>
+    <fieldset>
+      <label>Title</label>
+      <input ref={node => {
+        titleInput = node
+      }} required />
+    </fieldset>
+    <fieldset>
+      <label>Text</label>
+      <input ref={node => {
+        textInput = node
+      }} required />
+    </fieldset>
+    <fieldset>
+      <label>Rating</label>
+      <select ref={node => {
+        ratingInput = node
+      }} required>
+        <option value='1'>1</option>
+        <option value='2'>2</option>
+        <option value='3'>3</option>
+        <option value='4'>4</option>
+        <option value='5'>5</option>
+      </select>
+    </fieldset>
     <button type="submit">
       Add Review
     </button>
