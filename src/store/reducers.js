@@ -1,18 +1,10 @@
 import { combineReducers } from 'redux'
 import locationReducer from './location'
+import reviews from '../routes/Reviews/reducer'
 
-export const makeRootReducer = (asyncReducers) => {
-  return combineReducers({
+const makeRootReducer = combineReducers({
     location: locationReducer,
-    ...asyncReducers
+    reviews
   })
-}
-
-export const injectReducer = (store, { key, reducer }) => {
-  if (Object.hasOwnProperty.call(store.asyncReducers, key)) return
-
-  store.asyncReducers[key] = reducer
-  store.replaceReducer(makeRootReducer(store.asyncReducers))
-}
 
 export default makeRootReducer

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-//import { AddReview } from '../modules/Reviews'
+import { addReview } from '../actions'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -12,12 +12,17 @@ import ReviewsBody from '../components/ReviewsBody'
     Keys will be passed as props to presentational components. Here we are
     implementing our wrapper around increment; the component doesn't care   */
 
-const mapDispatchToProps = {
-//  AddReview
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clickAddReview: (title) => {
+      console.log('dispatch test')
+      dispatch(addReview(title))
+    }
+  }
 }
 
 const mapStateToProps = (state) => ({
-  reviews : state.reviews
+  reviews : state.reviews.items
 })
 
 /*  Note: mapStateToProps is where you should use `reselect` to create selectors, ie:
@@ -34,4 +39,9 @@ const mapStateToProps = (state) => ({
     Selectors are composable. They can be used as input to other selectors.
     https://github.com/reactjs/reselect    */
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsBody)
+const ReviewsContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ReviewsBody)
+
+export default ReviewsContainer

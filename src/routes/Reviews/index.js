@@ -1,24 +1,6 @@
-import { injectReducer } from '../../store/reducers'
+import ReviewsContainer from './containers/ReviewsContainer'
 
 export default (store) => ({
   path : 'reviews',
-  /*  Async getComponent is only invoked when route matches   */
-  getComponent (nextState, cb) {
-    /*  Webpack - use 'require.ensure' to create a split point
-        and embed an async module loader (jsonp) when bundling   */
-    require.ensure([], (require) => {
-      /*  Webpack - use require callback to define
-          dependencies for bundling   */
-      const Reviews = require('./containers/ReviewsContainer').default
-      const reducer = require('./modules/reviews').default
-
-      /*  Add the reducer to the store on key 'counter'  */
-      injectReducer(store, { key: 'reviews', reducer })
-
-      /*  Return getComponent   */
-      cb(null, Reviews)
-
-    /* Webpack named bundle   */
-  }, 'reviews')
-  }
+  component: ReviewsContainer
 })
