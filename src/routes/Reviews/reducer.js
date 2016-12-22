@@ -1,32 +1,26 @@
-import { ADD_REVIEW } from './constants'
+import _ from 'lodash'
 import faker from 'faker' // TODO remove this when IDs come from server
 
-const initialState = {
-  items: [
-    {
-      id: 0,
-      title:'test review 1'
-    },
-    {
-      id: 1,
-      title:'test review 2'
-    }
-  ]
+import { ADD_REVIEW } from './constants'
+
+function getDate() {
+  let d = new Date();
+  return d
 }
 
-export default function reviews(state = initialState, action) {
+export default function reviews(state = {}, action) {
   switch (action.type) {
     case ADD_REVIEW:
       return Object.assign({},state,{
         items: [
-          ...state.items,
           {
             ...action.review,
             id: faker.random.uuid(),
-          }
+            createdDate: getDate()
+          },
+          ...state.items
         ]
       })
-      return state
     default:
       return state
   }

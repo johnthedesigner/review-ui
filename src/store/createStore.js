@@ -6,7 +6,6 @@ import { updateLocation } from './location'
 import mockState from './mockState'
 
 export default (initialState = mockState) => {
-  console.log(mockState)
   // ======================================================
   // Middleware Configuration
   // ======================================================

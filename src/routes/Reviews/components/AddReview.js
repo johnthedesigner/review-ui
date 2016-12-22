@@ -1,4 +1,5 @@
 import React from 'react'
+import { browserHistory } from 'react-router'
 
 let titleInput, textInput, ratingInput
 
@@ -16,25 +17,26 @@ let submitAddReview = (e, props) => {
   titleInput.value = ''
   textInput.value = ''
   ratingInput.value = ''
+  browserHistory.push('/reviews')
 }
 
 export const AddReview = (props) => (
 
   <form onSubmit={(e) => { submitAddReview(e, props) }}>
     <fieldset>
-      <label>Title</label>
+      <label>Review Title</label>
       <input ref={node => {
         titleInput = node
       }} required />
     </fieldset>
     <fieldset>
-      <label>Text</label>
+      <label>Review Text</label>
       <input ref={node => {
         textInput = node
       }} required />
     </fieldset>
     <fieldset>
-      <label>Rating</label>
+      <label>Select a Rating</label>
       <select ref={node => {
         ratingInput = node
       }} required>

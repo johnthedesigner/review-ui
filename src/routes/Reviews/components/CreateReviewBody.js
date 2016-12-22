@@ -1,10 +1,10 @@
 //import React, { PropTypes } from 'react'
 import React from 'react'
-import ReviewList from './ReviewList'
+import AddReview from './AddReview'
 
-const ReviewsBody = ({ reviews }) => (
+const CreateReviewBody = ({ clickAddReview }) => (
   <div>
-    <ReviewList reviews={reviews} />
+    <AddReview clickAddReview={clickAddReview} />
   </div>
 )
 
@@ -14,4 +14,4 @@ const ReviewsBody = ({ reviews }) => (
 //  }).isRequired).isRequired
 //}
 
-export default ReviewsBody
+export default CreateReviewBody
