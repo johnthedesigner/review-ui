@@ -1,7 +1,7 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
 
-let titleInput, textInput, ratingInput
+let titleInput, contentInput, ratingInput
 
 let submitAddReview = (e, props) => {
   e.preventDefault()
@@ -10,14 +10,13 @@ let submitAddReview = (e, props) => {
   }
   let review = {
     title: titleInput.value,
-    text: textInput.value,
+    content: contentInput.value,
     rating: ratingInput.value - 0 // TODO better way to force number type?
   }
   props.clickAddReview(review)
   titleInput.value = ''
-  textInput.value = ''
+  contentInput.value = ''
   ratingInput.value = ''
-  browserHistory.push('/reviews')
 }
 
 export const AddReview = (props) => (
@@ -32,7 +31,7 @@ export const AddReview = (props) => (
     <fieldset>
       <label>Review Text</label>
       <input ref={node => {
-        textInput = node
+        contentInput = node
       }} required />
     </fieldset>
     <fieldset>

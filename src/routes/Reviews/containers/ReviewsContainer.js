@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { addReview } from '../actions'
+import { fetchReviews, addReview } from '../actions'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -12,7 +12,18 @@ import ReviewsBody from '../components/ReviewsBody'
     Keys will be passed as props to presentational components. Here we are
     implementing our wrapper around increment; the component doesn't care   */
 
-const mapDispatchToProps = (dispatch) => ({})
+const mapDispatchToProps = (dispatch) => {
+  const review = {
+    title: 'test',
+    text: 'test',
+    rating: 1
+  }
+  return {
+    loadReviews: () => {
+      dispatch(fetchReviews())
+    }
+  }
+}
 
 const mapStateToProps = (state) => ({
   reviews : state.reviews.items

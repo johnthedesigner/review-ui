@@ -50,6 +50,5 @@ const buildMockState = () => {
 }
 
 const mockState = buildMockState()
-console.log(mockState)
 
 export default mockState

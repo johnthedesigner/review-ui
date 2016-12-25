@@ -1,7 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
 import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
+import createLogger from 'redux-logger'
+
+const loggerMiddleware = createLogger()
 
 // ========================================================
 // Store Instantiation

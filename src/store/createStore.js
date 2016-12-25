@@ -1,16 +1,22 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
+import logger from 'redux-logger'
 import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
 import mockState from './mockState'
 
-export default (initialState = mockState) => {
+const testState = {
+  reviews: {
+    items: []
+  }
+}
+
+export default (initialState = testState) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk]
-
+  const middleware = [thunk,logger]
   // ======================================================
   // Store Enhancers
   // ======================================================
@@ -32,7 +38,7 @@ export default (initialState = mockState) => {
     makeRootReducer,
     initialState,
     composeEnhancers(
-      applyMiddleware(...middleware),
+      applyMiddleware(thunk),
       ...enhancers
     )
   )

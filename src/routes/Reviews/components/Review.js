@@ -5,7 +5,7 @@ const Review = ({ review }) => (
     <h3>{review.title}</h3>
     <h4>Rating: {review.rating}</h4>
     <p><em>{new Date(review.createdDate).toString()}</em></p>
-    <p>{review.text}</p>
+    <p>{review.content}</p>
   </article>
 )
 
@@ -13,9 +13,9 @@ Review.propTypes = {
   review: PropTypes.shape({
     createdDate: PropTypes.date,
     title: PropTypes.string,
-    id: PropTypes.string,
-    text: PropTypes.string,
-    rating: PropTypes.number,
+    id: PropTypes.number,
+    content: PropTypes.string,
+    rating: PropTypes.number
   })
 }
 

@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import { addReview } from '../actions'
-import { locationChange } from '../../../store/location'
+import { createNewReview } from '../actions'
 
 /*  This is a container component. Notice it does not contain any JSX,
     nor does it import React. This component is **only** responsible for
@@ -15,8 +14,8 @@ import CreateReviewBody from '../components/CreateReviewBody'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clickAddReview: (title) => {
-      dispatch(addReview(title))
+    clickAddReview: (review) => {
+      dispatch(createNewReview(review))
     }
   }
 }
