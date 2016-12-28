@@ -3,22 +3,39 @@ import { browserHistory } from 'react-router'
 
 import { consoleGroup } from '../../utils/utils'
 import {
-  REQUEST_REVIEWS,
-  RECEIVE_REVIEWS,
   POST_NEW_REVIEW,
-  RECEIVE_NEW_REVIEW
+  RECEIVE_REVIEW,
+  RECEIVE_REVIEWS,
+  REQUEST_REVIEW,
+  REQUEST_REVIEWS
 } from './constants'
+
+export function requestReview() {
+  return {
+    type: REQUEST_REVIEW
+  }
+}
+
+export function receiveReview(review,id) {
+  return {
+    type : RECEIVE_REVIEW,
+    review : review,
+    id: id
+  }
+}
+
+export function fetchReview(id) {
+  return dispatch => {
+    dispatch(requestReview())
+    return fetch(`https://review-api.herokuapp.com/api/reviews/${id}/?filter[include]=thing`)
+      .then(response => response.json())
+      .then(json => dispatch(receiveReview(json,id)))
+  }
+}
 
 export function postNewReview() {
   return {
     type: POST_NEW_REVIEW
-  }
-}
-
-export function receiveNewReview (review) {
-  return {
-    type : RECEIVE_NEW_REVIEW,
-    review : review
   }
 }
 
@@ -33,8 +50,10 @@ export function createNewReview(review) {
     }
     return fetch('https://review-api.herokuapp.com/api/reviews',options)
       .then(response => response.json())
-      .then(json => dispatch(receiveNewReview(json)))
-      .then(() => browserHistory.push('/reviews'))
+      .then(json => {
+        dispatch(receiveReview(json))
+        browserHistory.push(`/review/${json.id}`)
+      })
   }
 }
 
