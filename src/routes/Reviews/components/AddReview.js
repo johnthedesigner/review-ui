@@ -1,7 +1,7 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
 
-let titleInput, contentInput, ratingInput
+let titleInput, contentInput, ratingInput, thingIdInput
 
 let submitAddReview = (e, props) => {
   e.preventDefault()
@@ -11,17 +11,28 @@ let submitAddReview = (e, props) => {
   let review = {
     title: titleInput.value,
     content: contentInput.value,
-    rating: ratingInput.value - 0 // TODO better way to force number type?
+    rating: ratingInput.value - 0, // TODO better way to force number type?
+    thingId: thingIdInput.value,
   }
   props.clickAddReview(review)
   titleInput.value = ''
   contentInput.value = ''
   ratingInput.value = ''
+  thingIdInput.value = ''
 }
 
 export const AddReview = (props) => (
 
   <form onSubmit={(e) => { submitAddReview(e, props) }}>
+    <fieldset>
+      <label>Select a Thing to review</label>
+      <select ref={node => {
+        thingIdInput = node
+      }} required>
+        <option value='0'>0</option>
+        <option value='1'>1</option>
+      </select>
+    </fieldset>
     <fieldset>
       <label>Review Title</label>
       <input ref={node => {

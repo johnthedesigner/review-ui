@@ -54,7 +54,7 @@ function receiveReviews(json) {
 export function fetchReviews() {
   return dispatch => {
     dispatch(requestReviews())
-    return fetch('https://review-api.herokuapp.com/api/reviews')
+    return fetch('https://review-api.herokuapp.com/api/reviews?filter[include]=thing')
       .then(response => response.json())
       .then(json => dispatch(receiveReviews(json)))
   }

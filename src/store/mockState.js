@@ -49,6 +49,15 @@ const buildMockState = () => {
   }
 }
 
-const mockState = buildMockState()
+export const mockState = buildMockState()
 
-export default mockState
+export const testState = {
+  reviews: {
+    reviewsById: {},
+    feed: {
+      items: [],
+      isLoading: false
+    },
+    thingsById: {}
+  }
+}

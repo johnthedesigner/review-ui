@@ -4,13 +4,7 @@ import logger from 'redux-logger'
 import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
-import mockState from './mockState'
-
-const testState = {
-  reviews: {
-    items: []
-  }
-}
+import { mockState, testState } from './mockState'
 
 export default (initialState = testState) => {
   // ======================================================

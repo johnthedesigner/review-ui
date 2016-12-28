@@ -1,13 +1,27 @@
 import React, { PropTypes } from 'react'
 import ReviewList from './ReviewList'
 
-ReviewList.propTypes = {
- reviews: PropTypes.arrayOf(PropTypes.shape({
-   title: PropTypes.string.isRequired
- }).isRequired).isRequired
-}
+import { consoleGroup } from '../../../utils/utils'
 
 class ReviewsBody extends React.Component {
+  // getDefaultProps() {
+  //   reviewsById: {},
+  //   thingsById: {},
+  //   feed: {
+  //     items: [],
+  //     isLoading: false
+  //   }
+  // }
+  mapReviews(props) {
+    return _.map(props.feed.items, function(review) {
+      return props.reviewsById[review]
+    })
+  }
+
+  componentWillMount() {
+    consoleGroup('XXXXXXX', [this.props])
+  }
+
   componentDidMount() {
     const { loadReviews } = this.props
     loadReviews()
@@ -16,7 +30,7 @@ class ReviewsBody extends React.Component {
   render() {
     return (
       <div>
-        <ReviewList reviews={this.props.reviews} />
+        <ReviewList reviews={this.mapReviews(this.props)} />
       </div>
     );
   }
