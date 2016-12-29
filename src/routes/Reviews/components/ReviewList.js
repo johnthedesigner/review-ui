@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Review from './Review'
 
 const ReviewList = ({ reviews }) => (
-  <ul>
+  <div id="reviewList">
     {reviews.map(review =>
       <Review
         key={review.id}
@@ -10,7 +10,7 @@ const ReviewList = ({ reviews }) => (
         {...review}
       />
     )}
-  </ul>
+  </div>
 )
 
 ReviewList.propTypes = {

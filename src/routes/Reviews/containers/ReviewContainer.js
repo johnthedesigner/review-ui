@@ -14,8 +14,8 @@ const assembleReview = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    loadReview: (reviewId) => {
-      dispatch(fetchReview(reviewId))
+    loadReview: (id) => {
+      dispatch(fetchReview(id))
     }
   }
 }

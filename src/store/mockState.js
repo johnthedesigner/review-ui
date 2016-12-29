@@ -66,6 +66,10 @@ export const testState = {
     thingsList: {
       items: [],
       isLoading: true
+    },
+    currentThing: {
+      id: null,
+      isLoading: true
     }
   }
 }

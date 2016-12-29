@@ -5,26 +5,28 @@ import {
   POST_NEW_REVIEW,
   RECEIVE_REVIEW,
   RECEIVE_REVIEWS,
+  RECEIVE_THING,
   RECEIVE_THINGS,
   REQUEST_REVIEW,
   REQUEST_REVIEWS,
+  REQUEST_THING,
   REQUEST_THINGS,
 } from './constants'
 
 // Normalize Reviews API Response
 const reviewSchema = new Schema('reviews')
-const thingsSchema = new Schema('things')
+const reviewThingSchema = new Schema('things')
 const errorSchema = new Schema('errors', {idAttribute:'name'})
 reviewSchema.define({
-  thing: thingSchema,
+  thing: reviewThingSchema,
   error: errorSchema
 })
 
 // Normalize Things API Response
 const thingSchema = new Schema('things')
-const reviewsSchema = new Schema('reviews')
+const thingReviewsSchema = new Schema('reviews')
 thingSchema.define({
-  reviews: reviewsSchema,
+  reviews: thingReviewsSchema,
   error: errorSchema
 })
 
@@ -47,9 +49,9 @@ export default function reviews(state = {}, action) {
       consoleGroup('RECEIVE_REVIEW',[action])
       let normalizedReview = normalize(action.review, reviewSchema)
 
-      let reviewId = normalizedReview.result
-      let reviewsToMerge = normalizedReview.entities.reviews
-      let thingsToMerge = normalizedReview.entities.things
+      var reviewId = normalizedReview.result
+      var reviewsToMerge = normalizedReview.entities.reviews
+      var thingsToMerge = normalizedReview.entities.things
 
       // If we got an error in our response, use it in place of review object
       if (normalizedReview.entities.errors) {
@@ -100,6 +102,41 @@ export default function reviews(state = {}, action) {
       })
       return receiveReviewsState
 
+      case REQUEST_THING:
+        consoleGroup('REQUEST_THING',[action])
+        return Object.assign({},state,{currentThing: {isLoading: true}})
+
+      case RECEIVE_THING:
+        consoleGroup('RECEIVE_THING',[action])
+        let normalizedThing = normalize(action.thing, thingSchema)
+
+        var thingId = normalizedThing.result
+        var reviewsToMerge = normalizedThing.entities.reviews
+        var thingsToMerge = normalizedThing.entities.things
+
+        // If we got an error in our response, use it in place of review object
+        if (normalizedThing.entities.errors) {
+          thingId = action.id
+          thingsToMerge[thingId] = normalizedThing.entities.errors
+        }
+
+        return Object.assign({},state,{ // Merge new review into state tree
+          reviewsById: Object.assign(
+            {},
+            state.reviewsById,
+            reviewsToMerge
+          ),
+          thingsById: Object.assign(
+            {},
+            state.thingsById,
+            thingsToMerge
+          ),
+          currentThing: {
+            id: thingId,
+            isLoading: false
+          }
+        })
+
       case REQUEST_THINGS:
         consoleGroup('REQUEST_THINGS',[action])
         return Object.assign({},state,{thingList: {isLoading: true}})
@@ -107,6 +144,7 @@ export default function reviews(state = {}, action) {
       case RECEIVE_THINGS:
         consoleGroup('RECEIVE_THINGS',[action])
         let normalizedThings = normalize(action.things, arrayOf(thingSchema))
+        console.log(action)
 
         let receiveThingsState = Object.assign({},state,{
           reviewsById: Object.assign(

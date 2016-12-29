@@ -12,10 +12,6 @@ export const Header = () => (
       Reviews
     </Link>
     {' · '}
-    <Link to='/reviews/create' activeClassName='route--active'>
-      New Review
-    </Link>
-    {' · '}
     <Link to='/things' activeClassName='route--active'>
       Things
     </Link>

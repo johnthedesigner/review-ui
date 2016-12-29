@@ -6,10 +6,12 @@ import {
   POST_NEW_REVIEW,
   RECEIVE_REVIEW,
   RECEIVE_REVIEWS,
+  RECEIVE_THING,
   RECEIVE_THINGS,
   REQUEST_REVIEW,
   REQUEST_REVIEWS,
-  REQUEST_THINGS
+  REQUEST_THING,
+  REQUEST_THINGS,
 } from './constants'
 
 export function requestReview() {
@@ -31,7 +33,9 @@ export function fetchReview(id) {
     dispatch(requestReview())
     return fetch(`https://review-api.herokuapp.com/api/reviews/${id}/?filter[include]=thing`)
       .then(response => response.json())
-      .then(json => dispatch(receiveReview(json,id)))
+      .then(json => {
+        dispatch(receiveReview(json,id))
+      })
   }
 }
 
@@ -78,6 +82,29 @@ export function fetchReviews() {
     return fetch('https://review-api.herokuapp.com/api/reviews?filter[include]=thing')
       .then(response => response.json())
       .then(json => dispatch(receiveReviews(json)))
+  }
+}
+
+export function requestThing() {
+  return {
+    type: REQUEST_THING
+  }
+}
+
+export function receiveThing(thing,id) {
+  return {
+    type : RECEIVE_THING,
+    thing : thing,
+    id: id
+  }
+}
+
+export function fetchThing(id) {
+  return dispatch => {
+    dispatch(requestThing())
+    return fetch(`https://review-api.herokuapp.com/api/things/${id}/?filter[include]=reviews`)
+      .then(response => response.json())
+      .then(json => dispatch(receiveThing(json,id)))
   }
 }
 

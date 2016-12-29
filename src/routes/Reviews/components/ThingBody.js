@@ -1,29 +1,28 @@
 import React, { PropTypes } from 'react'
+import Thing from './Thing'
 
-import Review from './Review'
-
-class ReviewBody extends React.Component {
-  reviewLoading() { // TODO: Make a real component for this
+class ThingBody extends React.Component {
+  thingLoading() { // TODO: Make a real component for this
     return <h1 className="loading">Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... </h1>
   }
 
-  reviewError(error) { // TODO: Make a real component for this
+  thingError(error) { // TODO: Make a real component for this
     return <h1 className="loading">Error: {error.message}</h1>
   }
 
   checkLoadingState(props) {
     if (props.isLoading) {
-      return this.reviewLoading()
-    } else if (this.props.review.Error) {
-      return this.reviewError(this.props.review.Error)
+      return this.thingLoading()
+    } else if (this.props.thing.Error) {
+      return this.thingError(this.props.thing.Error)
     } else {
-      return <Review review={this.props.review} />
+      return <Thing thing={this.props.thing} />
     }
   }
 
   componentDidMount() {
-    const { loadReview, params } = this.props
-    loadReview(params.id)
+    const { loadThing, params } = this.props
+    loadThing(params.id)
   }
 
   render() {
@@ -35,9 +34,9 @@ class ReviewBody extends React.Component {
   }
 }
 
-ReviewBody.propTypes = {
-  review: PropTypes.object,
+ThingBody.propTypes = {
+  thing: PropTypes.object,
   isLoading: PropTypes.bool
 }
 
-export default ReviewBody
+export default ThingBody

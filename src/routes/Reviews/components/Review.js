@@ -1,12 +1,15 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
+import Thing from './Thing'
+
 class Review extends React.Component {
   render() {
     let review = {}
     if (this.props.review != undefined) {review = this.props.review}
     return (
-      <article>
+      <article className="reviewItem">
+        <Thing thing={review.thing} />
         <h3><Link to={`/review/${review.id}`}>{review.title}</Link></h3>
         <h4>Rating: {review.rating}</h4>
         <p><em>{new Date(review.createdDate).toString()}</em></p>

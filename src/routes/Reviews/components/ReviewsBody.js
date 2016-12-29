@@ -1,18 +1,14 @@
 import React, { PropTypes } from 'react'
+
 import ReviewList from './ReviewList'
+import '../styles/reviewBody.scss'
 
 class ReviewsBody extends React.Component {
-  // getDefaultProps() {
-  //   reviewsById: {},
-  //   thingsById: {},
-  //   feed: {
-  //     items: [],
-  //     isLoading: false
-  //   }
-  // }
   mapReviews(props) {
-    return _.map(props.feed.items, function(review) {
-      return props.reviewsById[review]
+    return _.map(props.feed.items, function(id) {
+      let assembledReview = props.reviewsById[id]
+      assembledReview.thing = props.thingsById[assembledReview.thing]
+      return assembledReview
     })
   }
 

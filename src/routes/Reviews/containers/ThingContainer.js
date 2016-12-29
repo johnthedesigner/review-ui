@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
-import { createNewReview, fetchThing } from '../actions'
+import { fetchThing } from '../actions'
 
-import CreateReviewBody from '../components/CreateReviewBody'
+import ThingBody from '../components/ThingBody'
 
 const assembleThing = (state) => {
   let thing = {}
@@ -14,13 +14,9 @@ const assembleThing = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clickAddReview: (review) => {
-      dispatch(createNewReview(review))
-    },
     loadThing: (id) => {
       dispatch(fetchThing(id))
     }
-
   }
 }
 
@@ -29,9 +25,9 @@ const mapStateToProps = (state) => ({
   isLoading: state.reviews.currentThing.isLoading
 })
 
-const CreateReviewContainer = connect(
+const ThingContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateReviewBody)
+)(ThingBody)
 
-export default CreateReviewContainer
+export default ThingContainer
