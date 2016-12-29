@@ -56,8 +56,16 @@ export const testState = {
     reviewsById: {},
     feed: {
       items: [],
-      isLoading: false
+      isLoading: true
     },
-    thingsById: {}
+    currentReview: {
+      id: null,
+      isLoading: true
+    },
+    thingsById: {},
+    thingsList: {
+      items: [],
+      isLoading: true
+    }
   }
 }

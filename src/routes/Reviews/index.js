@@ -1,6 +1,7 @@
 import CreateReviewContainer from './containers/CreateReviewContainer'
 import ReviewContainer from './containers/ReviewContainer'
 import ReviewsContainer from './containers/ReviewsContainer'
+import ThingsContainer from './containers/ThingsContainer'
 
 export default [{
   path: '/reviews',
@@ -13,4 +14,7 @@ export default [{
 {
   path: '/reviews/create',
   component: CreateReviewContainer
+},{
+  path: '/things',
+  component: ThingsContainer
 }]
