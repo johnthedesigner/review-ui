@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { browserHistory } from 'react-router'
 
+import { noAuthRedirect } from '../../../utils/utils'
 import Review from './Review'
 
 class ReviewBody extends React.Component {
@@ -23,9 +24,7 @@ class ReviewBody extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
-    // Redirect to Reviews Page if logged in
-    if (!nextProps.user.isLoggedIn) browserHistory.push('/login')
+    noAuthRedirect(nextProps)
   }
 
   componentDidMount() {

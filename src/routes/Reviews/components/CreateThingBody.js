@@ -2,13 +2,13 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
 
+import { noAuthRedirect } from '../../../utils/utils'
+
 let nameInput, descInput
 
 class CreateThingBody extends React.Component {
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
-    // Redirect to Reviews Page if logged in
-    if (!nextProps.user.isLoggedIn) browserHistory.push('/login')
+    noAuthRedirect(nextProps)
   }
 
   submitAddThing(e, props) {

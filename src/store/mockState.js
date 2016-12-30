@@ -79,7 +79,7 @@ export const testState = {
     }
   },
   user: {
-    isLoading: false,
+    isLoading: true,
     isLoggedIn: false,
     auth: {},
     error: {}

@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { browserHistory, Link } from 'react-router'
 
+import { noAuthRedirect } from '../../../utils/utils'
 import ThingList from './ThingList'
 
 class ThingsBody extends React.Component {
@@ -11,8 +12,7 @@ class ThingsBody extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // Redirect to Reviews Page if logged in
-    if (!nextProps.user.isLoggedIn) browserHistory.push('/login')
+    noAuthRedirect(nextProps)
   }
 
   componentDidMount() {

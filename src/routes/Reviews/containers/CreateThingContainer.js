@@ -6,7 +6,6 @@ import CreateThingBody from '../components/CreateThingBody'
 const mapDispatchToProps = (dispatch) => {
   return {
     clickAddThing: (thing, access_token) => {
-      console.log(thing)
       dispatch(createNewThing(thing, access_token))
     }
   }
