@@ -11,7 +11,6 @@ class ThingsBody extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
     // Redirect to Reviews Page if logged in
     if (!nextProps.user.isLoggedIn) browserHistory.push('/login')
   }

@@ -52,6 +52,12 @@ const buildMockState = () => {
 export const mockState = buildMockState()
 
 export const testState = {
+  messages: {
+    errorList: [],
+    currentError: {},
+    alertList: [],
+    currentAlert: {}
+  },
   reviews: {
     reviewsById: {},
     feed: {
@@ -73,7 +79,7 @@ export const testState = {
     }
   },
   user: {
-    isLoading: true,
+    isLoading: false,
     isLoggedIn: false,
     auth: {},
     error: {}

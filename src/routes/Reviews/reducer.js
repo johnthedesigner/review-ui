@@ -78,7 +78,11 @@ export default function reviews(state = {}, action) {
 
     case REQUEST_REVIEWS:
       consoleGroup('REQUEST_REVIEWS',[action])
-      return Object.assign({},state,{feed: {isLoading: true}})
+      return Object.assign({},state,{
+        feed: {
+          isLoading: true
+        }
+      })
 
     case RECEIVE_REVIEWS:
       consoleGroup('RECEIVE_REVIEWS',[action])
@@ -139,7 +143,11 @@ export default function reviews(state = {}, action) {
 
       case REQUEST_THINGS:
         consoleGroup('REQUEST_THINGS',[action])
-        return Object.assign({},state,{thingList: {isLoading: true}})
+        return Object.assign({},state,{
+          thingList: {
+            isLoading: true
+          }
+        })
 
       case RECEIVE_THINGS:
         consoleGroup('RECEIVE_THINGS',[action])

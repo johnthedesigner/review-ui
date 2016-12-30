@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
-import { fetchLogIn } from '../actions'
+import { fetchNewUser } from '../actions'
 import { resetCurrentError, resetCurrentAlert } from '../../../store/messages'
 
-import LoginBody from '../components/LoginBody'
+import RegisterBody from '../components/RegisterBody'
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    tryLogin: (credentials) => {
-      dispatch(fetchLogIn(credentials))
+    tryNewUser: (credentials) => {
+      dispatch(fetchNewUser(credentials))
     },
     triggerResetError: () => {
       dispatch(resetCurrentError())
@@ -23,9 +23,9 @@ const mapStateToProps = (state) => ({
   user: state.user
 })
 
-const LoginContainer = connect(
+const RegisterContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginBody)
+)(RegisterBody)
 
-export default LoginContainer
+export default RegisterContainer

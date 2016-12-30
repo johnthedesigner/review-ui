@@ -1,30 +1,14 @@
-import { normalize, Schema, arrayOf } from 'normalizr'
-
 import { consoleGroup } from '../../utils/utils'
 import {
   RECEIVE_LOG_IN,
   RECEIVE_LOG_IN_ERROR,
   RECEIVE_LOG_OUT,
+  RECEIVE_NEW_USER,
+  RECEIVE_NEW_USER_ERROR,
   REQUEST_LOG_IN,
   REQUEST_LOG_OUT,
+  REQUEST_NEW_USER,
 } from './constants'
-
-// Normalize Reviews API Response
-const reviewSchema = new Schema('reviews')
-const reviewThingSchema = new Schema('things')
-const errorSchema = new Schema('errors', {idAttribute:'name'})
-reviewSchema.define({
-  thing: reviewThingSchema,
-  error: errorSchema
-})
-
-// Normalize Things API Response
-const thingSchema = new Schema('things')
-const thingReviewsSchema = new Schema('reviews')
-thingSchema.define({
-  reviews: thingReviewsSchema,
-  error: errorSchema
-})
 
 // User Reducer
 export default function reviews(state = {}, action) {
@@ -40,25 +24,21 @@ export default function reviews(state = {}, action) {
       return Object.assign({},state,{
         isLoading: false,
         isLoggedIn: true,
-        auth: action.response,
-        error: {}
+        auth: action.response
       })
 
     case RECEIVE_LOG_IN_ERROR:
       consoleGroup('RECEIVE_LOG_IN_ERROR',[action])
-      console.log(action)
       return Object.assign({},state,{
         isLoading: false,
         isLoggedIn: false,
-        auth: {},
-        error: action.response.error
+        auth: {}
       })
 
     case REQUEST_LOG_OUT:
       consoleGroup('REQUEST_LOG_OUT',[action])
       return Object.assign({},state,{
-        isLoading: true,
-        error: {}
+        isLoading: true
       })
 
     case RECEIVE_LOG_OUT:
@@ -66,8 +46,28 @@ export default function reviews(state = {}, action) {
       return Object.assign({},state,{
         isLoading: false,
         isLoggedIn: false,
-        auth: {},
-        error: {}
+        auth: {}
+      })
+
+    case REQUEST_NEW_USER:
+      consoleGroup('REQUEST_NEW_USER',[action])
+      return Object.assign({},state,{
+        isLoading: true
+      })
+
+    case RECEIVE_NEW_USER:
+      consoleGroup('RECEIVE_NEW_USER',[action])
+      return Object.assign({},state,{
+        isLoading: false,
+        isLoggedIn: false
+      })
+
+    case RECEIVE_NEW_USER_ERROR:
+      consoleGroup('RECEIVE_NEW_USER_ERROR',[action])
+      return Object.assign({},state,{
+        isLoading: false,
+        isLoggedIn: false,
+        auth: {}
       })
 
     default:

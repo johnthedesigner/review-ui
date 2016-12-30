@@ -8,9 +8,15 @@ class Header extends React.Component {
     let isLoggedIn = user.isLoggedIn
     if (!isLoggedIn) {
       return (
-        <Link to='/login' activeClassName='route--active'>
-          Log In
-        </Link>
+        <span>
+          <Link to='/login' activeClassName='route--active'>
+            Log In
+          </Link>
+          {' · '}
+          <Link to='/register' activeClassName='route--active'>
+            Register
+          </Link>
+        </span>
       )
     } else {
       return (

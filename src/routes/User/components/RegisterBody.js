@@ -1,34 +1,31 @@
 import React, { PropTypes } from 'react'
 import { browserHistory } from 'react-router'
 
-let usernameInput, passwordInput
+let usernameInput, emailInput, passwordInput
 
-class LoginBody extends React.Component {
+class RegisterBody extends React.Component {
   componentWillReceiveProps(nextProps) {
     // Redirect to Reviews Page if logged in
     if (nextProps.user.isLoggedIn) browserHistory.push('/reviews')
   }
 
-  componentWillUnmount() {
-    this.props.triggerResetError()
-    this.props.triggerResetAlert()
-  }
-
-  loginLoading() { // TODO: Make a real component for this
+  RegisterLoading() { // TODO: Make a real component for this
     return <h1 className="loading">Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... </h1>
   }
 
-  submitLogIn = (e, props) => {
+  submitNewUser = (e, props) => {
     e.preventDefault()
     if (!usernameInput.value.trim()) {
       return
     }
     let credentials = {
       username: usernameInput.value,
+      email: emailInput.value,
       password: passwordInput.value
     }
-    props.tryLogin(credentials)
+    props.tryNewUser(credentials)
     usernameInput.value = ''
+    emailInput.value = ''
     passwordInput.value = ''
   }
 
@@ -39,13 +36,14 @@ class LoginBody extends React.Component {
   }
 
   checkForAlert(alert) {
+    console.log(alert)
     if (alert.message) {
       return <h1 className="loading">Message: {alert.message}</h1>
     }
   }
 
   showButtonOrLoading(isLoading) {
-    if (false) {
+    if (isLoading) {
       return <button type="submit" disabled>Loading...</button>
     } else {
       return <button type="submit">Log In</button>
@@ -55,13 +53,19 @@ class LoginBody extends React.Component {
   render() {
     return (
       <div>
-        {this.checkForAlert(this.props.messages.currentAlert)}
-        {this.checkForError(this.props.messages.currentError)}
-        <form onSubmit={(e) => { this.submitLogIn(e, this.props) }}>
+      {this.checkForAlert(this.props.messages.currentAlert)}
+      {this.checkForError(this.props.messages.currentError)}
+        <form onSubmit={(e) => { this.submitNewUser(e, this.props) }}>
           <fieldset>
             <label>Username</label>
             <input ref={node => {
               usernameInput = node
+            }} required />
+          </fieldset>
+          <fieldset>
+            <label>Email Address</label>
+            <input ref={node => {
+              emailInput = node
             }} required />
           </fieldset>
           <fieldset>
@@ -77,8 +81,9 @@ class LoginBody extends React.Component {
   }
 }
 
-LoginBody.propTypes = {
-  user: PropTypes.object
+RegisterBody.propTypes = {
+  messages: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 }
 
-export default LoginBody
+export default RegisterBody
