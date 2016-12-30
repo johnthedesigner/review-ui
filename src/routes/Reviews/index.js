@@ -1,4 +1,5 @@
 import CreateReviewContainer from './containers/CreateReviewContainer'
+import CreateThingContainer from './containers/CreateThingContainer'
 import ReviewContainer from './containers/ReviewContainer'
 import ReviewsContainer from './containers/ReviewsContainer'
 import ThingsContainer from './containers/ThingsContainer'
@@ -25,4 +26,8 @@ export default [{
 {
   path: '/thing/:id',
   component: ThingContainer
+},
+{
+  path: '/things/create',
+  component: CreateThingContainer
 }]

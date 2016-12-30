@@ -9,13 +9,14 @@ let submitAddReview = (e, props) => {
   if (!titleInput.value.trim()) {
     return
   }
+  let access_token = props.user.auth.id
   let review = {
     title: titleInput.value,
     content: contentInput.value,
     rating: ratingInput.value - 0, // TODO better way to force number type?
     thingId: props.thingId
   }
-  props.clickAddReview(review)
+  props.clickAddReview(review, access_token)
   titleInput.value = ''
   contentInput.value = ''
   ratingInput.value = ''

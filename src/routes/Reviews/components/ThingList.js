@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import Thing from './Thing'
 
 const ThingList = ({ things }) => (
-  <ul>
+  <div>
     {things.map(thing =>
       <Thing
         key={thing.id}
@@ -10,7 +10,7 @@ const ThingList = ({ things }) => (
         {...thing}
       />
     )}
-  </ul>
+  </div>
 )
 
 ThingList.propTypes = {

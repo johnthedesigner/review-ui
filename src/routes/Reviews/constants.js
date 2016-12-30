@@ -1,5 +1,6 @@
 // Constants
 export const POST_NEW_REVIEW = 'POST_NEW_REVIEW'
+export const POST_NEW_THING = 'POST_NEW_THING'
 export const RECEIVE_REVIEW = 'RECEIVE_REVIEW'
 export const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS'
 export const RECEIVE_THING = 'RECEIVE_THING'

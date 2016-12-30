@@ -3,6 +3,7 @@ import { normalize, Schema, arrayOf } from 'normalizr'
 import { consoleGroup } from '../../utils/utils'
 import {
   POST_NEW_REVIEW,
+  POST_NEW_THING,
   RECEIVE_REVIEW,
   RECEIVE_REVIEWS,
   RECEIVE_THING,
@@ -106,70 +107,78 @@ export default function reviews(state = {}, action) {
       })
       return receiveReviewsState
 
-      case REQUEST_THING:
-        consoleGroup('REQUEST_THING',[action])
-        return Object.assign({},state,{currentThing: {isLoading: true}})
-
-      case RECEIVE_THING:
-        consoleGroup('RECEIVE_THING',[action])
-        let normalizedThing = normalize(action.thing, thingSchema)
-
-        var thingId = normalizedThing.result
-        var reviewsToMerge = normalizedThing.entities.reviews
-        var thingsToMerge = normalizedThing.entities.things
-
-        // If we got an error in our response, use it in place of review object
-        if (normalizedThing.entities.errors) {
-          thingId = action.id
-          thingsToMerge[thingId] = normalizedThing.entities.errors
+    case POST_NEW_THING:
+      consoleGroup('POST_NEW_THING',[action])
+      return Object.assign({},state,{
+        currentThing: {
+          isLoading: true
         }
+      })
 
-        return Object.assign({},state,{ // Merge new review into state tree
-          reviewsById: Object.assign(
-            {},
-            state.reviewsById,
-            reviewsToMerge
-          ),
-          thingsById: Object.assign(
-            {},
-            state.thingsById,
-            thingsToMerge
-          ),
-          currentThing: {
-            id: thingId,
-            isLoading: false
-          }
-        })
+    case REQUEST_THING:
+      consoleGroup('REQUEST_THING',[action])
+      return Object.assign({},state,{currentThing: {isLoading: true}})
 
-      case REQUEST_THINGS:
-        consoleGroup('REQUEST_THINGS',[action])
-        return Object.assign({},state,{
-          thingList: {
-            isLoading: true
-          }
-        })
+    case RECEIVE_THING:
+      consoleGroup('RECEIVE_THING',[action])
+      let normalizedThing = normalize(action.thing, thingSchema)
 
-      case RECEIVE_THINGS:
-        consoleGroup('RECEIVE_THINGS',[action])
-        let normalizedThings = normalize(action.things, arrayOf(thingSchema))
+      var thingId = normalizedThing.result
+      var reviewsToMerge = normalizedThing.entities.reviews
+      var thingsToMerge = normalizedThing.entities.things
 
-        let receiveThingsState = Object.assign({},state,{
-          reviewsById: Object.assign(
-            {},
-            state.reviewsById,
-            normalizedThings.entities.reviews
-          ),
-          thingsById: Object.assign(
-            {},
-            state.thingsById,
-            normalizedThings.entities.things
-          ),
-          thingsList: {
-            items: normalizedThings.result,
-            isLoading: false
-          }
-        })
-        return receiveThingsState
+      // If we got an error in our response, use it in place of review object
+      if (normalizedThing.entities.errors) {
+        thingId = action.id
+        thingsToMerge[thingId] = normalizedThing.entities.errors
+      }
+
+      return Object.assign({},state,{ // Merge new review into state tree
+        reviewsById: Object.assign(
+          {},
+          state.reviewsById,
+          reviewsToMerge
+        ),
+        thingsById: Object.assign(
+          {},
+          state.thingsById,
+          thingsToMerge
+        ),
+        currentThing: {
+          id: thingId,
+          isLoading: false
+        }
+      })
+
+    case REQUEST_THINGS:
+      consoleGroup('REQUEST_THINGS',[action])
+      return Object.assign({},state,{
+        thingList: {
+          isLoading: true
+        }
+      })
+
+    case RECEIVE_THINGS:
+      consoleGroup('RECEIVE_THINGS',[action])
+      let normalizedThings = normalize(action.things, arrayOf(thingSchema))
+
+      let receiveThingsState = Object.assign({},state,{
+        reviewsById: Object.assign(
+          {},
+          state.reviewsById,
+          normalizedThings.entities.reviews
+        ),
+        thingsById: Object.assign(
+          {},
+          state.thingsById,
+          normalizedThings.entities.things
+        ),
+        thingsList: {
+          items: normalizedThings.result,
+          isLoading: false
+        }
+      })
+      return receiveThingsState
 
     default:
       // consoleGroup('Thing Reducer Default',[action])

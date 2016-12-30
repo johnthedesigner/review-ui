@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router'
 import { consoleGroup } from '../../utils/utils'
 import {
   POST_NEW_REVIEW,
+  POST_NEW_THING,
   RECEIVE_REVIEW,
   RECEIVE_REVIEWS,
   RECEIVE_THING,
@@ -45,7 +46,7 @@ export function postNewReview() {
   }
 }
 
-export function createNewReview(review) {
+export function createNewReview(review, access_token) {
   return dispatch => {
     dispatch(postNewReview())
     let body = JSON.stringify(review)
@@ -54,7 +55,7 @@ export function createNewReview(review) {
       body: body,
       headers: { 'Content-Type': 'application/json' }
     }
-    return fetch('https://review-api.herokuapp.com/api/reviews',options)
+    return fetch(`https://review-api.herokuapp.com/api/reviews?access_token=${access_token}`,options)
       .then(response => response.json())
       .then(json => {
         dispatch(receiveReview(json))
@@ -118,6 +119,30 @@ function receiveThings(json) {
   return {
     type: RECEIVE_THINGS,
     things: json
+  }
+}
+
+export function postNewThing() {
+  return {
+    type: POST_NEW_THING
+  }
+}
+
+export function createNewThing(thing, access_token) {
+  return dispatch => {
+    dispatch(postNewThing())
+    let body = JSON.stringify(thing)
+    let options = {
+      method: 'POST',
+      body: body,
+      headers: { 'Content-Type': 'application/json' }
+    }
+    return fetch(`https://review-api.herokuapp.com/api/things?access_token=${access_token}`,options)
+      .then(response => response.json())
+      .then(json => {
+        dispatch(receiveThing(json))
+        browserHistory.push(`/thing/${json.id}`)
+      })
   }
 }
 

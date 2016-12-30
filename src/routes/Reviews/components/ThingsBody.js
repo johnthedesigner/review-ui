@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { browserHistory } from 'react-router'
+import { browserHistory, Link } from 'react-router'
 
 import ThingList from './ThingList'
 
@@ -23,6 +23,7 @@ class ThingsBody extends React.Component {
   render() {
     return (
       <div>
+        <Link to={'/things/create'}><button>New Thing</button></Link>
         <ThingList things={this.mapThings(this.props)} />
       </div>
     );

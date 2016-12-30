@@ -23,7 +23,7 @@ Review.propTypes = {
   review: PropTypes.shape({
     createdDate: PropTypes.date,
     title: PropTypes.string.isRequired,
-    id: PropTypes.number,
+    id: PropTypes.string,
     content: PropTypes.string,
     rating: PropTypes.number
   })

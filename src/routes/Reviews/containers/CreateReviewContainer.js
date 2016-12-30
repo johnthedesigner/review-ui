@@ -14,8 +14,8 @@ const assembleThing = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clickAddReview: (review) => {
-      dispatch(createNewReview(review))
+    clickAddReview: (review, access_token) => {
+      dispatch(createNewReview(review, access_token))
     },
     loadThing: (id) => {
       dispatch(fetchThing(id))

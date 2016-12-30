@@ -19,9 +19,10 @@ class CreateReviewBody extends React.Component {
   render() {
     let thing = this.props.thing
     let clickAddReview = this.props.clickAddReview
+    let user = this.props.user
     return (
       <div>
-        <AddReview thing={thing} thingId={thing.id} clickAddReview={clickAddReview} />
+        <AddReview user={user} thing={thing} thingId={thing.id} clickAddReview={clickAddReview} />
       </div>
     )
   }
