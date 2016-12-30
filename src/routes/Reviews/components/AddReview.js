@@ -23,7 +23,6 @@ let submitAddReview = (e, props) => {
 }
 
 class AddReview extends React.Component {
-
   render() {
     return (
       <form onSubmit={(e) => { submitAddReview(e, this.props) }}>

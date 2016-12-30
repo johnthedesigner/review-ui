@@ -144,7 +144,6 @@ export default function reviews(state = {}, action) {
       case RECEIVE_THINGS:
         consoleGroup('RECEIVE_THINGS',[action])
         let normalizedThings = normalize(action.things, arrayOf(thingSchema))
-        console.log(action)
 
         let receiveThingsState = Object.assign({},state,{
           reviewsById: Object.assign(
@@ -165,7 +164,7 @@ export default function reviews(state = {}, action) {
         return receiveThingsState
 
     default:
-      consoleGroup('Thing Reducer Default',[action])
+      // consoleGroup('Thing Reducer Default',[action])
       return state
   }
 }
