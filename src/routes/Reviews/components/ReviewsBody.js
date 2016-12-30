@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import { browserHistory } from 'react-router'
 
 import ReviewList from './ReviewList'
 import '../styles/reviewBody.scss'
@@ -10,6 +11,12 @@ class ReviewsBody extends React.Component {
       assembledReview.thing = props.thingsById[assembledReview.thing]
       return assembledReview
     })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    // Redirect to Reviews Page if logged in
+    if (!nextProps.user.isLoggedIn) browserHistory.push('/login')
   }
 
   componentDidMount() {

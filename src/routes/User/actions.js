@@ -1,6 +1,7 @@
 import { consoleGroup } from '../../utils/utils'
 import {
   RECEIVE_LOG_IN,
+  RECEIVE_LOG_IN_ERROR,
   RECEIVE_LOG_OUT,
   REQUEST_LOG_IN,
   REQUEST_LOG_OUT,
@@ -38,10 +39,17 @@ export function requestLogIn() {
   }
 }
 
-export function receiveLogIn(user) {
+export function receiveLogIn(response) {
   return {
     type : RECEIVE_LOG_IN,
-    user : user
+    response : response
+  }
+}
+
+export function receiveLogInError(response) {
+  return {
+    type : RECEIVE_LOG_IN_ERROR,
+    response : response
   }
 }
 
@@ -56,9 +64,13 @@ export function fetchLogIn(credentials) {
         'Content-Type': 'application/json'
       }
     })
-      .then(response => response.json())
-      .then(json => {
+    .then(response => response.json())
+    .then(json => {
+      if (!json.error) {
         dispatch(receiveLogIn(json))
-      })
+      } else {
+        dispatch(receiveLogInError(json))
+      }
+    })
   }
 }

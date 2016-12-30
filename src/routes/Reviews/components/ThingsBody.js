@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react'
+import { browserHistory } from 'react-router'
+
 import ThingList from './ThingList'
 
 class ThingsBody extends React.Component {
@@ -6,6 +8,12 @@ class ThingsBody extends React.Component {
     return _.map(props.thingsList.items, function(thing) {
       return props.thingsById[thing]
     })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    // Redirect to Reviews Page if logged in
+    if (!nextProps.user.isLoggedIn) browserHistory.push('/login')
   }
 
   componentDidMount() {

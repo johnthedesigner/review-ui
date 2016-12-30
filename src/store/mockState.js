@@ -75,6 +75,7 @@ export const testState = {
   user: {
     isLoading: true,
     isLoggedIn: false,
-    auth: {}
+    auth: {},
+    error: {}
   }
 }

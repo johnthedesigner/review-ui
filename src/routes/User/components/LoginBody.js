@@ -1,8 +1,15 @@
 import React, { PropTypes } from 'react'
+import { browserHistory } from 'react-router'
 
 let usernameInput, passwordInput
 
 class LoginBody extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    // Redirect to Reviews Page if logged in
+    if (nextProps.user.isLoggedIn) browserHistory.push('/reviews')
+  }
+
   loginLoading() { // TODO: Make a real component for this
     return <h1 className="loading">Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... </h1>
   }
@@ -25,18 +32,24 @@ class LoginBody extends React.Component {
     passwordInput.value = ''
   }
 
-  checkLoadingState(props) {
-    if (props.isLoading) {
-      return this.loginLoading()
-    } else if (this.props.user.Error) {
-      return this.loginError(this.props.user.Error)
+  checkForLogInError(error) {
+    if (error.message) {
+      return <h1 className="loading">Error: {error.message}</h1>
+    }
+  }
+
+  showButtonOrLoading(isLoading) {
+    if (isLoading) {
+      return <button type="submit" disabled>Loading...</button>
+    } else {
+      return <button type="submit">Log In</button>
     }
   }
 
   render() {
     return (
       <div>
-        {this.checkLoadingState(this.props)}
+        {this.checkForLogInError(this.props.user.error)}
         <form onSubmit={(e) => { this.submitLogin(e, this.props) }}>
           <fieldset>
             <label>Username</label>
@@ -50,9 +63,7 @@ class LoginBody extends React.Component {
               passwordInput = node
             }} required />
           </fieldset>
-          <button type="submit">
-            Add Review
-          </button>
+          {this.showButtonOrLoading(this.props.user.isLoading)}
         </form>
       </div>
     )

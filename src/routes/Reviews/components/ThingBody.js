@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react'
+import { browserHistory } from 'react-router'
+
 import Thing from './Thing'
 
 class ThingBody extends React.Component {
@@ -18,6 +20,12 @@ class ThingBody extends React.Component {
     } else {
       return <Thing thing={this.props.thing} />
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    // Redirect to Reviews Page if logged in
+    if (!nextProps.user.isLoggedIn) browserHistory.push('/login')
   }
 
   componentDidMount() {

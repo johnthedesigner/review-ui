@@ -3,14 +3,6 @@ import { fetchLogIn } from '../actions'
 
 import LoginBody from '../components/LoginBody'
 
-const assembleUser = (state) => {
-  let user = {}
-  if ( state.user.id != null ) {
-    user = state.user
-  }
-  return user
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
     tryLogin: (credentials) => {
@@ -20,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => ({
-  user: assembleUser(state)
+  user: state.user
 })
 
 const LoginContainer = connect(

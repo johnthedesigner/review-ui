@@ -22,7 +22,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => ({
   review: assembleReview(state),
-  isLoading: state.reviews.currentReview.isLoading
+  isLoading: state.reviews.currentReview.isLoading,
+  user: state.user
 })
 
 const ReviewContainer = connect(

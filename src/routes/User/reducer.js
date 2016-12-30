@@ -3,6 +3,7 @@ import { normalize, Schema, arrayOf } from 'normalizr'
 import { consoleGroup } from '../../utils/utils'
 import {
   RECEIVE_LOG_IN,
+  RECEIVE_LOG_IN_ERROR,
   RECEIVE_LOG_OUT,
   REQUEST_LOG_IN,
   REQUEST_LOG_OUT,
@@ -29,23 +30,35 @@ thingSchema.define({
 export default function reviews(state = {}, action) {
   switch (action.type) {
     case REQUEST_LOG_IN:
-      consoleGroup('REQUEST_LOGIN',[action])
+      consoleGroup('REQUEST_LOG_IN',[action])
       return Object.assign({},state,{
         isLoading: true
       })
 
     case RECEIVE_LOG_IN:
-      consoleGroup('RECEIVE_LOGIN',[action])
+      consoleGroup('RECEIVE_LOG_IN',[action])
       return Object.assign({},state,{
         isLoading: false,
         isLoggedIn: true,
-        auth: action.user
+        auth: action.response,
+        error: {}
+      })
+
+    case RECEIVE_LOG_IN_ERROR:
+      consoleGroup('RECEIVE_LOG_IN_ERROR',[action])
+      console.log(action)
+      return Object.assign({},state,{
+        isLoading: false,
+        isLoggedIn: false,
+        auth: {},
+        error: action.response.error
       })
 
     case REQUEST_LOG_OUT:
       consoleGroup('REQUEST_LOG_OUT',[action])
       return Object.assign({},state,{
-        isLoading: true
+        isLoading: true,
+        error: {}
       })
 
     case RECEIVE_LOG_OUT:
@@ -53,7 +66,8 @@ export default function reviews(state = {}, action) {
       return Object.assign({},state,{
         isLoading: false,
         isLoggedIn: false,
-        auth: {}
+        auth: {},
+        error: {}
       })
 
     default:

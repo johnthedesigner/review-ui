@@ -1,9 +1,16 @@
 //import React, { PropTypes } from 'react'
 import React from 'react'
+import { browserHistory } from 'react-router'
 
 import AddReview from './AddReview'
 
 class CreateReviewBody extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    // Redirect to Reviews Page if logged in
+    if (!nextProps.user.isLoggedIn) browserHistory.push('/login')
+  }
+
   componentDidMount() {
     const { loadThing, params } = this.props
     loadThing(params.thingId)
