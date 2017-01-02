@@ -4,12 +4,19 @@ import { Link } from 'react-router'
 import Thing from './Thing'
 
 class Review extends React.Component {
+  shouldShowThing(review) {
+    console.log(review.thing)
+    if (review.thing) {
+      return <Thing thing={review.thing} />
+    }
+  }
+
   render() {
     let review = {}
     if (this.props.review != undefined) {review = this.props.review}
     return (
       <article className="reviewItem">
-        <Thing thing={review.thing} />
+        {this.shouldShowThing(review)}
         <h3><Link to={`/review/${review.id}`}>{review.title}</Link></h3>
         <h4>Rating: {review.rating}</h4>
         <p><em>{new Date(review.createdDate).toString()}</em></p>

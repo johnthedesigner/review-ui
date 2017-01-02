@@ -8,7 +8,11 @@ class Header extends React.Component {
     let isLoggedIn = user.isLoggedIn
     if (!isLoggedIn) {
       return (
-        <span>
+        <div>
+          <IndexLink to='/' activeClassName='route--active'>
+            Home
+          </IndexLink>
+          {' · '}
           <Link to='/login' activeClassName='route--active'>
             Log In
           </Link>
@@ -16,13 +20,27 @@ class Header extends React.Component {
           <Link to='/register' activeClassName='route--active'>
             Register
           </Link>
-        </span>
+        </div>
       )
     } else {
       return (
-        <a onClick={() => this.props.tryLogOut(this.props.user)}>
-          Log Out
-        </a>
+        <div>
+          <IndexLink to='/' activeClassName='route--active'>
+            Home
+          </IndexLink>
+          {' · '}
+          <Link to='/reviews' activeClassName='route--active'>
+            Reviews
+          </Link>
+          {' · '}
+          <Link to='/things' activeClassName='route--active'>
+            Things
+          </Link>
+          {' · '}
+          <a onClick={() => this.props.tryLogOut(this.props.user)}>
+            Log Out
+          </a>
+        </div>
       )
     }
   }
@@ -30,18 +48,6 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <IndexLink to='/' activeClassName='route--active'>
-          Home
-        </IndexLink>
-        {' · '}
-        <Link to='/reviews' activeClassName='route--active'>
-          Reviews
-        </Link>
-        {' · '}
-        <Link to='/things' activeClassName='route--active'>
-          Things
-        </Link>
-        {' · '}
         {this.logInOrOut(this.props)}
       </div>
     )

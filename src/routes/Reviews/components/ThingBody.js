@@ -3,21 +3,18 @@ import React, { PropTypes } from 'react'
 import { noAuthRedirect } from '../../../utils/utils'
 import Thing from './Thing'
 import ReviewList from './ReviewList'
+import errorMessage from '../../../components/errorMessage'
 
 class ThingBody extends React.Component {
   thingLoading() { // TODO: Make a real component for this
     return <h1 className="loading">Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... Loading... </h1>
   }
 
-  thingError(error) { // TODO: Make a real component for this
-    return <h1 className="loading">Error: {error.message}</h1>
-  }
-
   checkLoadingState(props) {
     if (props.isLoading) {
       return this.thingLoading()
     } else if (this.props.thing.Error) {
-      return this.thingError(this.props.thing.Error)
+      return <errorMessage message={this.props.thing.Error.message} />
     } else {
       return <Thing thing={this.props.thing} />
     }
@@ -33,13 +30,17 @@ class ThingBody extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {this.checkLoadingState(this.props)}
-        <hr />
-        <ReviewList reviews={this.props.thing.reviews} />
-      </div>
-    )
+    if (this.props.thing) {
+      return (
+        <div>
+          {this.checkLoadingState(this.props)}
+          <p>Reviews for this thing:</p>
+          <ReviewList reviews={this.props.thing.reviews} />
+        </div>
+      )
+    } else {
+      return null
+    }
   }
 }
 

@@ -5,9 +5,12 @@ import ThingBody from '../components/ThingBody'
 
 const assembleThing = (state) => {
   // Get Thing from normalized state
-  let thing = state.reviews.thingsById[state.reviews.currentThing.id]
+  let currentThing = state.reviews.currentThing
+  let thing = state.reviews.thingsById[currentThing.id]
   // Get Reviews for Thing from normalized state
-  thing.reviews = _.filter(state.reviews.reviewsById,{'thingId':thing.id})
+  if (thing) {
+    thing.reviews = _.filter(state.reviews.reviewsById,{'thingId':thing.id})
+  }
   return thing
 }
 

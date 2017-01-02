@@ -82,7 +82,9 @@ export function fetchReviews() {
     dispatch(requestReviews())
     return fetch('https://review-api.herokuapp.com/api/reviews?filter[include]=thing')
       .then(response => response.json())
-      .then(json => dispatch(receiveReviews(json)))
+      .then(json => {
+        dispatch(receiveReviews(json))
+      })
   }
 }
 

@@ -14,7 +14,9 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => ({
   thingsList: state.reviews.thingsList,
   thingsById: state.reviews.thingsById,
-  user: state.user
+  user: state.user,
+  reviews: state.reviews,
+  things: state.things
 })
 
 const ThingsContainer = connect(

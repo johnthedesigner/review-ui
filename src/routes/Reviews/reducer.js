@@ -14,6 +14,9 @@ import {
   REQUEST_THINGS,
 } from './constants'
 
+function generateSlug(entity,id) {
+  return entity.id
+}
 // Normalize Reviews API Response
 const reviewSchema = new Schema('reviews')
 const reviewThingSchema = new Schema('things')
@@ -27,7 +30,7 @@ reviewSchema.define({
 const thingSchema = new Schema('things')
 const thingReviewsSchema = new Schema('reviews')
 thingSchema.define({
-  reviews: thingReviewsSchema,
+  reviews: arrayOf(thingReviewsSchema),
   error: errorSchema
 })
 
@@ -88,7 +91,6 @@ export default function reviews(state = {}, action) {
     case RECEIVE_REVIEWS:
       consoleGroup('RECEIVE_REVIEWS',[action])
       let normalizedReviews = normalize(action.reviews, arrayOf(reviewSchema))
-
       let receiveReviewsState = Object.assign({},state,{
         reviewsById: Object.assign(
           {},

@@ -24,11 +24,13 @@ class ReviewsBody extends React.Component {
   }
 
   render() {
-    return (
-      <div>
+    if (this.props.feed.items) {
+      return (
         <ReviewList reviews={this.mapReviews(this.props)} />
-      </div>
-    );
+      )
+    } else {
+      return null
+    }
   }
 }
 
