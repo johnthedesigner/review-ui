@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 
 import { noAuthRedirect } from '../../../utils/utils'
 import Thing from './Thing'
-import ReviewList from './ReviewList'
+import ReviewList from '../../Reviews/components/ReviewList'
 import errorMessage from '../../../components/errorMessage'
 
 class ThingBody extends React.Component {
@@ -20,6 +20,10 @@ class ThingBody extends React.Component {
     }
   }
 
+  showReviewsIfPresent(reviews) {
+    if (reviews) return <ReviewList reviews={reviews} />
+  }
+
   componentWillReceiveProps(nextProps) {
     noAuthRedirect(nextProps)
   }
@@ -29,13 +33,18 @@ class ThingBody extends React.Component {
     loadThing(params.id)
   }
 
+  componentWillUnmount() {
+    this.props.triggerResetError()
+    this.props.triggerResetAlert()
+  }
+
   render() {
     if (this.props.thing) {
       return (
         <div>
           {this.checkLoadingState(this.props)}
           <p>Reviews for this thing:</p>
-          <ReviewList reviews={this.props.thing.reviews} />
+          {this.showReviewsIfPresent(this.props.thing.reviews)}
         </div>
       )
     } else {

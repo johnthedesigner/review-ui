@@ -9,7 +9,7 @@ class LoginBody extends React.Component {
     if (nextProps.user.isLoggedIn) browserHistory.push('/reviews')
   }
 
-  componentWillUnmount() {
+  componentDidMount() {
     this.props.triggerResetError()
     this.props.triggerResetAlert()
   }

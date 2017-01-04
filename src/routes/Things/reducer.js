@@ -1,64 +1,64 @@
 import { consoleGroup } from '../../utils/utils'
 import {
-  POST_NEW_REVIEW,
-  RECEIVE_CURRENT_REVIEW,
-  RECEIVE_REVIEW_FEED,
-  RECEIVE_REVIEWS,
-  REQUEST_CURRENT_REVIEW,
-  REQUEST_REVIEW_FEED,
+  POST_NEW_THING,
+  RECEIVE_CURRENT_THING,
+  RECEIVE_THING_LIST,
+  RECEIVE_THINGS,
+  REQUEST_CURRENT_THING,
+  REQUEST_THING_LIST,
 } from './constants'
 
 // Reviews Reducer
 export default function reviews(state = {}, action) {
   switch (action.type) {
-    case POST_NEW_REVIEW:
-      consoleGroup('POST_NEW_REVIEW',[action])
+    case POST_NEW_THING:
+      consoleGroup('POST_NEW_THING',[action])
       return Object.assign({},state,{
-        currentReview: {
+        currentThing: {
           isLoading: true
         }
       })
 
-    case RECEIVE_CURRENT_REVIEW:
-      consoleGroup('RECEIVE_CURRENT_REVIEW',[action])
+    case RECEIVE_CURRENT_THING:
+      consoleGroup('RECEIVE_CURRENT_THING',[action])
       return Object.assign({},state,{ // Merge new review into state tree
-        currentReview: {
+        currentThing: {
           id: action.id,
           isLoading: false
         }
       })
 
-    case RECEIVE_REVIEW_FEED:
-      consoleGroup('RECEIVE_REVIEW_FEED',[action])
+    case RECEIVE_THING_LIST:
+      consoleGroup('RECEIVE_THING_LIST',[action])
       return Object.assign({},state,{
-        feed: {
+        thingsList: {
           items: action.items,
           isLoading: false
         }
       })
 
-    case RECEIVE_REVIEWS:
-      consoleGroup('RECEIVE_REVIEWS',[action])
+    case RECEIVE_THINGS:
+      consoleGroup('RECEIVE_THINGS',[action])
       return Object.assign({},state,{
-        reviewsById: Object.assign(
+        thingsById: Object.assign(
           {},
-          state.reviewsById,
-          action.reviews
+          state.things,
+          action.things
         )
       })
 
-    case REQUEST_CURRENT_REVIEW:
-      consoleGroup('REQUEST_CURRENT_REVIEW',[action])
+    case REQUEST_CURRENT_THING:
+      consoleGroup('REQUEST_CURRENT_THING',[action])
       return Object.assign({},state,{
-        currentReview: {
+        currentThing: {
           isLoading: true
         }
       })
 
-    case REQUEST_REVIEW_FEED:
-      consoleGroup('REQUEST_REVIEW_FEED',[action])
+    case REQUEST_THING_LIST:
+      consoleGroup('REQUEST_THINGS',[action])
       return Object.assign({},state,{
-        feed: {
+        thingList: {
           isLoading: true
         }
       })

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Thing from './Thing'
+import Thing from '../../Things/components/Thing'
 
 let titleInput, contentInput, ratingInput, thingIdInput
 

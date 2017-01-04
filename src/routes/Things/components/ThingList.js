@@ -3,12 +3,14 @@ import Thing from './Thing'
 
 const ThingList = ({ things }) => (
   <div>
-    {things.map(thing =>
-      <Thing
-        key={thing.id}
-        thing={thing}
-        {...thing}
-      />
+    {things.map(thing => {
+      if (thing) return( // TODO: Why is this check necessary?
+        <Thing
+          key={thing.id}
+          thing={thing}
+          {...thing}
+        />
+      )}
     )}
   </div>
 )

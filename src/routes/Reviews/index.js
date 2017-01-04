@@ -1,9 +1,6 @@
 import CreateReviewContainer from './containers/CreateReviewContainer'
-import CreateThingContainer from './containers/CreateThingContainer'
 import ReviewContainer from './containers/ReviewContainer'
 import ReviewsContainer from './containers/ReviewsContainer'
-import ThingsContainer from './containers/ThingsContainer'
-import ThingContainer from './containers/ThingContainer'
 
 import './styles/main.scss'
 
@@ -18,16 +15,4 @@ export default [{
 {
   path: '/reviews/create/:thingId',
   component: CreateReviewContainer
-},
-{
-  path: '/things',
-  component: ThingsContainer
-},
-{
-  path: '/thing/:id',
-  component: ThingContainer
-},
-{
-  path: '/things/create',
-  component: CreateThingContainer
 }]

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
-import { createNewReview } from '../actions'
-import { fetchCurrentThing } from '../../Things/actions'
+import { fetchCurrentThing } from '../actions'
+import { resetCurrentError, resetCurrentAlert } from '../../../store/messages'
 
-import CreateReviewBody from '../components/CreateReviewBody'
+import ThingBody from '../components/ThingBody'
 
 const assembleThing = (state) => {
   // Get Thing from normalized state
@@ -17,25 +17,27 @@ const assembleThing = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    clickAddReview: (review, access_token) => {
-      dispatch(createNewReview(review, access_token))
-    },
     loadThing: (id) => {
       dispatch(fetchCurrentThing(id))
+    },
+    triggerResetError: () => {
+      dispatch(resetCurrentError())
+    },
+    triggerResetAlert: () => {
+      dispatch(resetCurrentAlert())
     }
-
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state,id) => ({
   thing: assembleThing(state),
   isLoading: state.things.currentThing.isLoading,
   user: state.user
 })
 
-const CreateReviewContainer = connect(
+const ThingContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateReviewBody)
+)(ThingBody)
 
-export default CreateReviewContainer
+export default ThingContainer

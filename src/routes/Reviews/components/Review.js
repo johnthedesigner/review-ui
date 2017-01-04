@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
-import Thing from './Thing'
+import Thing from '../../Things/components/Thing'
 
 class Review extends React.Component {
   shouldShowThing(review) {
-    console.log(review.thing)
     if (review.thing) {
       return <Thing thing={review.thing} />
     }

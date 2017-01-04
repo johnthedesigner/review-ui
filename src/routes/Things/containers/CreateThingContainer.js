@@ -12,7 +12,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => ({
-  isLoading: state.reviews.currentThing.isLoading,
+  isLoading: state.things.currentThing.isLoading,
   messages: state.messages,
   user: state.user
 })

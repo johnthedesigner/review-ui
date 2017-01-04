@@ -59,7 +59,7 @@ export const testState = {
     currentAlert: {}
   },
   reviews: {
-    reviewsById: {},
+    byId: {},
     feed: {
       items: [],
       isLoading: true
@@ -67,8 +67,10 @@ export const testState = {
     currentReview: {
       id: null,
       isLoading: true
-    },
-    thingsById: {},
+    }
+  },
+  things: {
+    byId: {},
     thingsList: {
       items: [],
       isLoading: true

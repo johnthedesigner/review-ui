@@ -1,48 +1,103 @@
 import fetch from 'node-fetch'
 import { browserHistory } from 'react-router'
+import { normalize, Schema, arrayOf } from 'normalizr'
 
 import { consoleGroup } from '../../utils/utils'
+import { receiveThings } from '../Things/actions'
 import {
   POST_NEW_REVIEW,
-  POST_NEW_THING,
-  RECEIVE_REVIEW,
+  RECEIVE_CURRENT_REVIEW,
+  RECEIVE_CURRENT_REVIEW_ERROR,
+  RECEIVE_REVIEW_FEED,
   RECEIVE_REVIEWS,
-  RECEIVE_THING,
-  RECEIVE_THINGS,
-  REQUEST_REVIEW,
-  REQUEST_REVIEWS,
-  REQUEST_THING,
-  REQUEST_THINGS,
+  REQUEST_CURRENT_REVIEW,
+  REQUEST_REVIEW_FEED,
 } from './constants'
 
-export function requestReview() {
-  return {
-    type: REQUEST_REVIEW
-  }
-}
-
-export function receiveReview(review,id) {
-  return {
-    type : RECEIVE_REVIEW,
-    review : review,
-    id: id
-  }
-}
-
-export function fetchReview(id) {
-  return dispatch => {
-    dispatch(requestReview())
-    return fetch(`https://review-api.herokuapp.com/api/reviews/${id}/?filter[include]=thing`)
-      .then(response => response.json())
-      .then(json => {
-        dispatch(receiveReview(json,id))
-      })
-  }
-}
+// Normalize Reviews API Response
+const reviewSchema = new Schema('reviews')
+const reviewThingSchema = new Schema('things')
+const errorSchema = new Schema('errors', {idAttribute:'name'})
+reviewSchema.define({
+  thing: reviewThingSchema,
+  error: errorSchema
+})
 
 export function postNewReview() {
   return {
     type: POST_NEW_REVIEW
+  }
+}
+
+function receiveCurrentReview(id) {
+  return {
+    type: RECEIVE_CURRENT_REVIEW,
+    id: id
+  }
+}
+
+function receiveCurrentReviewError(error) {
+  return {
+    type: RECEIVE_CURRENT_REVIEW,
+    error: error
+  }
+}
+
+function receiveReviewFeed(items) {
+  return {
+    type: RECEIVE_REVIEW_FEED,
+    items: items
+  }
+}
+
+export function receiveReviews(reviews) {
+  return {
+    type: RECEIVE_REVIEWS,
+    reviews: reviews
+  }
+}
+
+export function requestCurrentReview() {
+  return {
+    type: REQUEST_CURRENT_REVIEW
+  }
+}
+
+export function requestReviewFeed() {
+  return {
+    type: REQUEST_REVIEW_FEED
+  }
+}
+
+export function fetchCurrentReview(id) {
+  return dispatch => {
+    dispatch(requestCurrentReview())
+    return fetch(`https://review-api.herokuapp.com/api/reviews/${id}/?filter[include]=thing`)
+      .then(response => response.json())
+      .then(json => {
+        if (json.error) {
+          dispatch(receiveCurrentReviewError(json.error))
+        } else {
+          let normalized = normalize(json, reviewSchema)
+          dispatch(receiveReviews(normalized.entities.reviews))
+          dispatch(receiveThings(normalized.entities.things))
+          dispatch(receiveCurrentReview(normalized.result))
+        }
+      })
+  }
+}
+
+export function fetchReviewList() {
+  return dispatch => {
+    dispatch(requestReviewFeed())
+    return fetch('https://review-api.herokuapp.com/api/reviews?filter[include]=thing')
+      .then(response => response.json())
+      .then(json => {
+        let normalized = normalize(json, arrayOf(reviewSchema))
+        dispatch(receiveReviews(normalized.entities.reviews))
+        dispatch(receiveThings(normalized.entities.things))
+        dispatch(receiveReviewFeed(normalized.result))
+      })
   }
 }
 
@@ -58,101 +113,11 @@ export function createNewReview(review, access_token) {
     return fetch(`https://review-api.herokuapp.com/api/reviews?access_token=${access_token}`,options)
       .then(response => response.json())
       .then(json => {
-        dispatch(receiveReview(json))
+        let normalized = normalize(json, reviewSchema)
+        dispatch(receiveReviews(normalized.entities.reviews))
+        dispatch(receiveThings(normalized.entities.things))
+        dispatch(receiveCurrentReview(normalized.result))
         browserHistory.push(`/review/${json.id}`)
       })
-  }
-}
-
-export function requestReviews() {
-  return {
-    type: REQUEST_REVIEWS
-  }
-}
-
-function receiveReviews(json) {
-  return {
-    type: RECEIVE_REVIEWS,
-    reviews: json
-  }
-}
-
-export function fetchReviews() {
-  return dispatch => {
-    dispatch(requestReviews())
-    return fetch('https://review-api.herokuapp.com/api/reviews?filter[include]=thing')
-      .then(response => response.json())
-      .then(json => {
-        dispatch(receiveReviews(json))
-      })
-  }
-}
-
-export function requestThing() {
-  return {
-    type: REQUEST_THING
-  }
-}
-
-export function receiveThing(thing,id) {
-  return {
-    type : RECEIVE_THING,
-    thing : thing,
-    id: id
-  }
-}
-
-export function fetchThing(id) {
-  return dispatch => {
-    dispatch(requestThing())
-    return fetch(`https://review-api.herokuapp.com/api/things/${id}/?filter[include]=reviews`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveThing(json,id)))
-  }
-}
-
-export function requestThings() {
-  return {
-    type: REQUEST_THINGS
-  }
-}
-
-function receiveThings(json) {
-  return {
-    type: RECEIVE_THINGS,
-    things: json
-  }
-}
-
-export function postNewThing() {
-  return {
-    type: POST_NEW_THING
-  }
-}
-
-export function createNewThing(thing, access_token) {
-  return dispatch => {
-    dispatch(postNewThing())
-    let body = JSON.stringify(thing)
-    let options = {
-      method: 'POST',
-      body: body,
-      headers: { 'Content-Type': 'application/json' }
-    }
-    return fetch(`https://review-api.herokuapp.com/api/things?access_token=${access_token}`,options)
-      .then(response => response.json())
-      .then(json => {
-        dispatch(receiveThing(json))
-        browserHistory.push(`/thing/${json.id}`)
-      })
-  }
-}
-
-export function fetchThings() {
-  return dispatch => {
-    dispatch(requestThings())
-    return fetch('https://review-api.herokuapp.com/api/things?filter[include]=reviews')
-      .then(response => response.json())
-      .then(json => dispatch(receiveThings(json)))
   }
 }

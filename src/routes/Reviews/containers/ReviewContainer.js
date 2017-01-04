@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
-import { fetchReview } from '../actions'
+import { fetchCurrentReview } from '../actions'
+import { resetCurrentError, resetCurrentAlert } from '../../../store/messages'
 
 import ReviewBody from '../components/ReviewBody'
 
@@ -15,7 +16,13 @@ const assembleReview = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     loadReview: (id) => {
-      dispatch(fetchReview(id))
+      dispatch(fetchCurrentReview(id))
+    },
+    triggerResetError: () => {
+      dispatch(resetCurrentError())
+    },
+    triggerResetAlert: () => {
+      dispatch(resetCurrentAlert())
     }
   }
 }
@@ -23,6 +30,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => ({
   review: assembleReview(state),
   isLoading: state.reviews.currentReview.isLoading,
+  messages: state.messages,
   user: state.user
 })
 

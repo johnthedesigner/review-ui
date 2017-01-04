@@ -2,6 +2,7 @@
 import CoreLayout from '../layouts/CoreLayout/CoreLayout'
 import Home from './Home'
 import ReviewsRoutes from './Reviews'
+import ThingsRoutes from './Things'
 import UserRoutes from './User'
 
 /*  Note: Instead of using JSX, we recommend using react-router
@@ -13,6 +14,7 @@ export const createRoutes = (store) => ({
   indexRoute  : Home,
   childRoutes : [
     ...ReviewsRoutes,
+    ...ThingsRoutes,
     ...UserRoutes
   ]
 })

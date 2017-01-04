@@ -14,11 +14,12 @@ class ReviewBody extends React.Component {
   }
 
   checkLoadingState(props) {
+    console.log(this.props)
     if (props.isLoading) {
       return this.reviewLoading()
-    } else if (this.props.review.Error) {
-      return this.reviewError(this.props.review.Error)
-    } else {
+    } else if (this.props.messages.currentError.message) {
+      return this.reviewError(this.props.messages.currentError)
+    } else if (this.props.review.id) {
       return <Review review={this.props.review} />
     }
   }
@@ -29,6 +30,8 @@ class ReviewBody extends React.Component {
 
   componentDidMount() {
     const { loadReview, params } = this.props
+    this.props.triggerResetError()
+    this.props.triggerResetAlert()
     loadReview(params.id)
   }
 

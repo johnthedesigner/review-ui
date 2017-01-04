@@ -1,13 +1,13 @@
 import { connect } from 'react-redux'
 import _ from 'lodash'
 
-import { fetchReviews } from '../actions'
+import { fetchReviewList } from '../actions'
 import ReviewsBody from '../components/ReviewsBody'
 
 const mapDispatchToProps = (dispatch) => {
   return {
     loadReviews: () => {
-      dispatch(fetchReviews())
+      dispatch(fetchReviewList())
     }
   }
 }
@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => ({
   reviewsById: state.reviews.reviewsById,
   feed: state.reviews.feed,
-  thingsById: state.reviews.thingsById,
+  thingsById: state.things.thingsById,
   user: state.user
 })
 
