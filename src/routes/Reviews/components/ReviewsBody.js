@@ -6,16 +6,8 @@ import ReviewList from './ReviewList'
 import '../styles/reviewBody.scss'
 
 class ReviewsBody extends React.Component {
-  mapReviews(props) {
-    return _.map(props.feed.items, function(id) {
-      let assembledReview = props.reviewsById[id]
-      assembledReview.thing = props.thingsById[assembledReview.thing]
-      return assembledReview
-    })
-  }
-
   componentWillReceiveProps(nextProps) {
-    noAuthRedirect(nextProps)
+    // noAuthRedirect(nextProps)
   }
 
   componentDidMount() {
@@ -24,9 +16,10 @@ class ReviewsBody extends React.Component {
   }
 
   render() {
-    if (this.props.feed.items) {
+    let { reviews, auth, likeReview } = this.props
+    if (reviews) {
       return (
-        <ReviewList reviews={this.mapReviews(this.props)} />
+        <ReviewList reviews={reviews} auth={auth} likeReview={likeReview} />
       )
     } else {
       return null

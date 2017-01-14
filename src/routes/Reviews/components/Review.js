@@ -2,6 +2,8 @@ import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
 
 import Thing from '../../Things/components/Thing'
+import LikeButton from '../../Likes/components/LikeButton'
+import { REVIEW } from '../../Likes/constants'
 
 class Review extends React.Component {
   shouldShowThing(review) {
@@ -11,8 +13,8 @@ class Review extends React.Component {
   }
 
   render() {
-    let review = {}
-    if (this.props.review != undefined) {review = this.props.review}
+    let { likeReview, auth, review } = this.props
+    let { likes } = review
     return (
       <article className="reviewItem">
         {this.shouldShowThing(review)}
@@ -20,6 +22,7 @@ class Review extends React.Component {
         <h4>Rating: {review.rating}</h4>
         <p><em>{new Date(review.createdDate).toString()}</em></p>
         <p>{review.content}</p>
+        <LikeButton type={REVIEW} id={review.id} />
       </article>
     )
   }

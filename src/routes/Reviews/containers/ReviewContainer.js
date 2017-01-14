@@ -1,16 +1,17 @@
 import { connect } from 'react-redux'
-import { fetchCurrentReview } from '../actions'
+import { fetchCurrentReview, likeReview } from '../actions'
 import { resetCurrentError, resetCurrentAlert } from '../../../store/messages'
 
 import ReviewBody from '../components/ReviewBody'
 
-const assembleReview = (state) => {
-  let review = {}
-  if ( state.reviews.currentReview.id != null ) {
-    review = state.reviews.reviewsById[state.reviews.currentReview.id]
-    review.thing = state.reviews.thingsById[review.thingId]
+// Denormalize reviews
+const mapReview = (currentReview = {}, reviews = {}, things = {}) => {
+  let assembledReview = {}
+  if (reviews[currentReview.id]) {
+    assembledReview = reviews[currentReview.id]
+    assembledReview.thing = things[assembledReview.thingId]
   }
-  return review
+  return assembledReview
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -23,12 +24,19 @@ const mapDispatchToProps = (dispatch) => {
     },
     triggerResetAlert: () => {
       dispatch(resetCurrentAlert())
+    },
+    likeReview: (reviewId, reviewerId, access_token) => {
+      dispatch(likeReview(reviewId, reviewerId, access_token))
     }
   }
 }
 
 const mapStateToProps = (state) => ({
-  review: assembleReview(state),
+  review: mapReview(
+    state.reviews.currentReview,
+    state.reviews.reviewsById,
+    state.things.thingsById
+  ),
   isLoading: state.reviews.currentReview.isLoading,
   messages: state.messages,
   user: state.user

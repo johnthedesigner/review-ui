@@ -64,7 +64,14 @@ export function requestThingList() {
 export function fetchCurrentThing(id) {
   return dispatch => {
     dispatch(requestCurrentThing())
-    return fetch(`https://review-api.herokuapp.com/api/things/${id}/?filter[include]=reviews`)
+    let filterProps = {
+      include: [
+        'likes',
+        {reviews: 'likes'}
+      ]
+    }
+    let filter = JSON.stringify(filterProps)
+    return fetch(`https://review-api.herokuapp.com/api/things/${id}/?filter=${filter}`)
       .then(response => response.json())
       .then(json => {
         let normalized = normalize(json, thingSchema)
@@ -79,7 +86,14 @@ export function fetchCurrentThing(id) {
 export function fetchThingList() {
   return dispatch => {
     dispatch(requestThingList())
-    return fetch('https://review-api.herokuapp.com/api/things?filter[include]=reviews')
+    let filterProps = {
+      include: [
+        'likes',
+        {reviews: 'likes'}
+      ]
+    }
+    let filter = JSON.stringify(filterProps)
+    return fetch(`https://review-api.herokuapp.com/api/things?filter=${filter}`)
       .then(response => response.json())
       .then(json => {
         let normalized = normalize(json, arrayOf(thingSchema))

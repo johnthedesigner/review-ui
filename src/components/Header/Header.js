@@ -13,6 +13,10 @@ class Header extends React.Component {
             Home
           </IndexLink>
           {' · '}
+          <Link to='/reviews' activeClassName='route--active'>
+            Reviews
+          </Link>
+          {' · '}
           <Link to='/login' activeClassName='route--active'>
             Log In
           </Link>

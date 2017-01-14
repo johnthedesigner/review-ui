@@ -20,8 +20,8 @@ class ThingBody extends React.Component {
     }
   }
 
-  showReviewsIfPresent(reviews) {
-    if (reviews) return <ReviewList reviews={reviews} />
+  showReviewsIfPresent(reviews, auth) {
+    if (reviews) return <ReviewList reviews={reviews} auth={auth} />
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,12 +39,13 @@ class ThingBody extends React.Component {
   }
 
   render() {
-    if (this.props.thing) {
+    let { thing, user, isLoading } = this.props
+    if (thing) {
       return (
         <div>
           {this.checkLoadingState(this.props)}
           <p>Reviews for this thing:</p>
-          {this.showReviewsIfPresent(this.props.thing.reviews)}
+          {this.showReviewsIfPresent(thing.reviews, user.auth, {} )}
         </div>
       )
     } else {
@@ -55,6 +56,7 @@ class ThingBody extends React.Component {
 
 ThingBody.propTypes = {
   thing: PropTypes.object,
+  user: PropTypes.object,
   isLoading: PropTypes.bool
 }
 

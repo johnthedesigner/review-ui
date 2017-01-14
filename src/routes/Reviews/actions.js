@@ -5,6 +5,7 @@ import { normalize, Schema, arrayOf } from 'normalizr'
 import { consoleGroup } from '../../utils/utils'
 import { receiveThings } from '../Things/actions'
 import {
+  LIKE_REVIEW_ERROR,
   POST_NEW_REVIEW,
   RECEIVE_CURRENT_REVIEW,
   RECEIVE_CURRENT_REVIEW_ERROR,
@@ -72,7 +73,14 @@ export function requestReviewFeed() {
 export function fetchCurrentReview(id) {
   return dispatch => {
     dispatch(requestCurrentReview())
-    return fetch(`https://review-api.herokuapp.com/api/reviews/${id}/?filter[include]=thing`)
+    let filterProps = {
+      include: [
+        'likes',
+        {thing: 'likes'}
+      ]
+    }
+    let filter = JSON.stringify(filterProps)
+    return fetch(`https://review-api.herokuapp.com/api/reviews/${id}/?filter=${filter}`)
       .then(response => response.json())
       .then(json => {
         if (json.error) {
@@ -90,7 +98,14 @@ export function fetchCurrentReview(id) {
 export function fetchReviewList() {
   return dispatch => {
     dispatch(requestReviewFeed())
-    return fetch('https://review-api.herokuapp.com/api/reviews?filter[include]=thing')
+    let filterProps = {
+      include: [
+        'likes',
+        {thing: 'likes'}
+      ]
+    }
+    let filter = JSON.stringify(filterProps)
+    return fetch(`https://review-api.herokuapp.com/api/reviews?filter=${filter}`)
       .then(response => response.json())
       .then(json => {
         let normalized = normalize(json, arrayOf(reviewSchema))
@@ -113,11 +128,52 @@ export function createNewReview(review, access_token) {
     return fetch(`https://review-api.herokuapp.com/api/reviews?access_token=${access_token}`,options)
       .then(response => response.json())
       .then(json => {
-        let normalized = normalize(json, reviewSchema)
-        dispatch(receiveReviews(normalized.entities.reviews))
-        dispatch(receiveThings(normalized.entities.things))
-        dispatch(receiveCurrentReview(normalized.result))
-        browserHistory.push(`/review/${json.id}`)
+        if (json.error) {
+          dispatch(createNewReviewError(json.error))
+        } else {
+          let normalized = normalize(json, reviewSchema)
+          dispatch(receiveReviews(normalized.entities.reviews))
+          dispatch(receiveThings(normalized.entities.things))
+          dispatch(receiveCurrentReview(normalized.result))
+          browserHistory.push(`/review/${json.id}`)
+        }
       })
+  }
+}
+
+function createNewReviewError(error) {
+  return {
+    type: CREATE_NEW_REVIEW_ERROR,
+    error: error
+  }
+}
+
+export function likeReview(reviewId, reviewerId, access_token) {
+  return dispatch => {
+    let body = JSON.stringify({
+      reviewId,
+      reviewerId
+    })
+    let options = {
+      method: 'POST',
+      body,
+      headers: { 'Content-Type': 'application/json' }
+    }
+    return fetch(`https://review-api.herokuapp.com/api/likes?access_token=${access_token}`,options)
+      .then(response => response.json())
+      .then(json => {
+        if (json.error) {
+          dispatch(likeReviewError(json.error))
+        } else {
+          dispatch(fetchCurrentReview(reviewId))
+        }
+      })
+  }
+}
+
+function likeReviewError(error) {
+  return {
+    type: LIKE_REVIEW_ERROR,
+    error: error
   }
 }

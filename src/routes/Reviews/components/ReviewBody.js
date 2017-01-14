@@ -14,13 +14,14 @@ class ReviewBody extends React.Component {
   }
 
   checkLoadingState(props) {
-    console.log(this.props)
+    let { review, user, likeReview } = props
+    let { auth } = user
     if (props.isLoading) {
       return this.reviewLoading()
     } else if (this.props.messages.currentError.message) {
       return this.reviewError(this.props.messages.currentError)
-    } else if (this.props.review.id) {
-      return <Review review={this.props.review} />
+    } else if (review) {
+      return <Review review={review} auth={auth} likeReview={likeReview} />
     }
   }
 
